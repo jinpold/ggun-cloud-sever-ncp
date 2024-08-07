@@ -26,7 +26,6 @@ public class AuthServiceImpl {
     }
 
     public Mono<ServerResponse> adminLogin(LoginDto loginDTO) {
-        System.out.println("-----------------adminLogin-----------------");
         return login(loginDTO, "lb://admin-service/auth/login");
     }
 

@@ -4,7 +4,7 @@ services:
     build:
       context: ./server/eureka-server
       dockerfile: Dockerfile
-    image: bkwangho/ggun-eureka:latest
+    image: ggun/eureka:latest
     container_name: eureka
     ports:
       - "8761:8761"
@@ -46,7 +46,7 @@ services:
     build:
       context: ./server/gateway-server
       dockerfile: Dockerfile
-    image: bkwangho/ggun-gateway:latest
+    image: ggun/gateway:latest
     container_name: gateway
     ports:
       - "8000:8000"
@@ -66,7 +66,7 @@ services:
     build:
       context: ./service/account-service
       dockerfile: Dockerfile
-    image: bkwangho/ggun-account:latest
+    image: ggun/account:latest
     container_name: account
     ports:
       - "8082:8082"
@@ -83,7 +83,7 @@ services:
     build:
       context: ./service/admin-service
       dockerfile: Dockerfile
-    image: bkwangho/ggun-admin:latest
+    image: ggun/admin:latest
     container_name: admin
     ports:
       - "8081:8081"
@@ -100,7 +100,7 @@ services:
     build:
       context: ./service/chat-service
       dockerfile: Dockerfile
-    image: bkwangho/ggun-chat:latest
+    image: ggun/chat:latest
     container_name: chat
     ports:
       - "8090:8090"
@@ -117,7 +117,7 @@ services:
     build:
       context: ./service/alarm-service
       dockerfile: Dockerfile
-    image: bkwangho/ggun-alarm:latest
+    image: ggun/alarm:latest
     container_name: alarm
     ports:
       - "8091:8091"
@@ -134,7 +134,7 @@ services:
     build:
       context: ./service/user-service
       dockerfile: Dockerfile
-    image: bkwangho/ggun-user:latest
+    image: ggun/user:latest
     container_name: user
     ports:
       - "8083:8083"

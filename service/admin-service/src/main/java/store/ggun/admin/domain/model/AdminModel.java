@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @ToString(exclude = {"id"})
 @AllArgsConstructor
-public class AdminModel extends BaseEntity {
+public class AdminModel extends AdminBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class AdminModel extends BaseEntity {
     private Role role;
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ArticleModel> articleModel;
+    private List<AdminArticleModel> articleModel;
 
     public void setPassword(String password) {
         this.password = password;

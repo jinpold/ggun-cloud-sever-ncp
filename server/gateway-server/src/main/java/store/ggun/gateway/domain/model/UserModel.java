@@ -17,6 +17,7 @@ import java.util.List;
 public class UserModel {
     private String id;
     private String email;
+    private String username;
     private String name;
     private String profile;
     private List<Role> roles;

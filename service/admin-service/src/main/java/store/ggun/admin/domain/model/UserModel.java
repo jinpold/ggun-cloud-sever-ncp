@@ -17,6 +17,7 @@ public class UserModel {
     private String id;
     private String email;
     private String name;
+    private String username;
     private List<Role> roles;
     private Registration registration;
 }

@@ -1,0 +1,87 @@
+pipeline {
+    agent any
+    environment {
+        PUSH_VERSION = "1.0"
+        COMPOSE_TAGNAME = 'ggun'
+
+        services = "gateway,eureka,user,chat,alarm,admin,account"
+    }
+
+    stages {
+        stage('Github clone') {
+            steps {
+                git branch: "main", credentialsId: 'github-token', url: "https://github.com/jinpold/ggun-cloud-sever-ncp.git"
+            }
+        }
+
+        stage('docker test') {
+                    steps {
+                        sh "docker ps"
+                        sh 'kubectl'
+                        sh "kubectl --kubeconfig=$HOME/kubeconfig.yaml get nodes"
+                    }
+                }
+
+        stage("Docker Login") {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
+        stage("Java Build") {
+            steps {
+                script {
+                    sh "chmod +x ./gradlew"
+                    sh "./gradlew clean build"
+                }
+            }
+        }
+
+        stage("Docker Image Remove") {
+            steps {
+                script {
+                    services.split(',').each { service ->
+                        sh "docker rmi -f $COMPOSE_TAGNAME/${service}:$PUSH_VERSION"
+                        sh "docker rmi -f $DOCKERHUB_CREDENTIALS_USR/${service}:$PUSH_VERSION"
+                    }
+                }
+            }
+        }
+
+        stage("Docker Image Build") {
+            steps {
+                sh "docker compose build"
+            }
+        }
+
+        stage("Docker Image Tag") {
+            steps {
+                script {
+                    services.split(',').each { service ->
+                        sh "docker tag $COMPOSE_TAGNAME/${service}:$PUSH_VERSION $DOCKERHUB_CREDENTIALS_USR/$service:$PUSH_VERSION"
+                    }
+                }
+            }
+        }
+
+        stage("Docker Push") {
+            steps {
+                script {
+                    services.split(',').each { service ->
+                        sh "docker push $DOCKERHUB_CREDENTIALS_USR/${service}:$PUSH_VERSION"
+                    }
+                }
+            }
+        }
+
+        stage('Apply Kubernetes files') {
+            steps {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yml get nodes"
+                    sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yml apply -f ./k8s/ggun-deployment.yml'
+                    sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yml apply -f ./k8s/ggun-service.yml'
+                }
+            }
+        }
+    }
+}

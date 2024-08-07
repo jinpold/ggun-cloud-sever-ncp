@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import store.ggun.admin.domain.model.ArticleModel;
+import store.ggun.admin.domain.model.AdminArticleModel;
 import store.ggun.admin.domain.vo.Role;
 
 import java.util.List;
@@ -37,6 +37,6 @@ public class AdminDto {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String token;
-    private List<ArticleModel> articleModels;
+    private List<AdminArticleModel> adminArticleModels;
 
 }

@@ -2,15 +2,15 @@ package store.ggun.admin.service;
 
 import store.ggun.admin.domain.dto.AdminDto;
 import store.ggun.admin.domain.model.AdminModel;
-import store.ggun.admin.domain.model.Messenger;
+import store.ggun.admin.domain.model.AdminMessengerModel;
 
 import java.util.Optional;
 
-public interface AdminService extends CommandService<AdminDto>, QueryService<AdminDto> {
+public interface AdminService extends AdminCommandService<AdminDto>, AdminQueryService<AdminDto> {
     // command
-    Messenger modify(AdminDto adminDto);
-    Messenger modifyRole(AdminDto adminDto);
-    Messenger update(AdminDto adminDto);
+    AdminMessengerModel modify(AdminDto adminDto);
+    AdminMessengerModel modifyRole(AdminDto adminDto);
+    AdminMessengerModel update(AdminDto adminDto);
     // query
     Boolean existsByUsername(String username);
     boolean findAdminByEmail(String email);

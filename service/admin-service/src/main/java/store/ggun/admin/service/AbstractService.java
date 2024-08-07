@@ -1,14 +1,14 @@
 package store.ggun.admin.service;
 
 import store.ggun.admin.domain.model.AdminModel;
-import store.ggun.admin.domain.model.Messenger;
+import store.ggun.admin.domain.model.AdminMessengerModel;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractService <T> {
-    public abstract Messenger save (T t);
+    public abstract AdminMessengerModel save (T t);
 
     public abstract List<T> findAll() throws SQLException;
 
@@ -25,5 +25,5 @@ public abstract class AbstractService <T> {
     public  abstract  Boolean existsById(long id);
 
 
-    public abstract Messenger insertMenuData(AdminModel adminModel) throws SQLException;
+    public abstract AdminMessengerModel insertMenuData(AdminModel adminModel) throws SQLException;
 }

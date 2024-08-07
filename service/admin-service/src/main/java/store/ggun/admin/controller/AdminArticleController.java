@@ -1,0 +1,69 @@
+package store.ggun.admin.controller;
+
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import store.ggun.admin.domain.dto.AdminArticleDto;
+import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.repository.jpa.AdminArticleRepository;
+import store.ggun.admin.serviceImpl.AdminArticleService;
+
+import java.sql.SQLException;
+import java.util.List;
+
+//@CrossOrigin(origins = "*", allowedHeaders = "*") // 기존에 origins = http://localhost:3000 이던걸 보안 걸었음. 퍼사드 패턴
+@RestController
+@RequiredArgsConstructor
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+        @ApiResponse(responseCode = "404", description = "Customer not found")})
+@RequestMapping(path = "/adminArticles")
+@Slf4j
+public class AdminArticleController {
+    private final AdminArticleService service;
+    private final AdminArticleRepository repository;
+
+    @SuppressWarnings("static-access")
+    @PostMapping( "/save")
+    public ResponseEntity<AdminMessengerModel> save(@RequestBody AdminArticleDto dto) {
+        log.info("입력받은 정보 : {}", dto );
+        return ResponseEntity.ok(service.save(dto));
+
+    }
+    @GetMapping("/list")
+    public ResponseEntity<List<AdminArticleDto>> findByBoardId() throws SQLException {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<AdminArticleDto> findById(@RequestParam("id") Long id) {
+        log.info("입력받은 정보 : {}", id );
+        return ResponseEntity.ok(service.findById(id).orElseGet(AdminArticleDto::new));
+    }
+    @PutMapping ("/modify")
+    public ResponseEntity<AdminMessengerModel> modify(@RequestBody AdminArticleDto dto) {
+        log.info("입력받은 정보 : {}", dto );
+        return ResponseEntity.ok(service.modify(dto));
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<AdminMessengerModel> deleteById(@RequestParam("id") Long id) {
+        log.info("입력받은 정보 : {}", id );
+        return ResponseEntity.ok(service.deleteById(id));
+    }
+    @GetMapping("/count")
+    public ResponseEntity<Long> count()  {
+        return ResponseEntity.ok(service.count());
+    }
+    @GetMapping("/exists")
+    public ResponseEntity<AdminMessengerModel> existsById(@RequestParam("id") Long id){
+        service.existsById(id);
+        return ResponseEntity.ok(new AdminMessengerModel());
+    }
+    @GetMapping("/myList")
+    public ResponseEntity<List<AdminArticleDto>> getArticleByBoardId(@RequestParam("id") Long boardId) {
+        return ResponseEntity.ok(service.getArticleByBoardId(boardId));
+    }
+}

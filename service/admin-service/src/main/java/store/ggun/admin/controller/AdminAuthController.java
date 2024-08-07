@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import store.ggun.admin.domain.dto.LoginDto;
 import store.ggun.admin.domain.dto.PrincipalUserDetails;
-import store.ggun.admin.service.LoginService;
+import store.ggun.admin.service.AdminLoginService;
 
 
 @RestController("adminAuthController")
@@ -21,7 +21,7 @@ import store.ggun.admin.service.LoginService;
 @RequestMapping(path = "/auth")
 @Slf4j
 public class AdminAuthController {
-    private final LoginService service;
+    private final AdminLoginService service;
 
     // -----------------------------------Query ---------------------------------------
 
