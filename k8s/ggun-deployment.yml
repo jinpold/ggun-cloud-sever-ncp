@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ggun-deployment
+  labels:
+    app: ggun
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ggun
+  template:
+    metadata:
+      labels:
+        app: ggun
+    spec:
+      containers:
+        - name: ggun-eureka
+          image: jinpold/eureka:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8761
+        - name: ggun-gateway
+          image: jinpold/gateway:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+        - name: ggun-user
+          image: jinpold/user:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+        - name: ggun-chat
+          image: jinpold/chat:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+        - name: ggun-alarm
+          image: jinpold/alarm:latest
+          ports:
+            - containerPort: 8091
+          imagePullPolicy: Always
+        - name: ggun-admin
+          image: jinpold/admin:latest
+          ports:
+            - containerPort: 8081
+          imagePullPolicy: Always
+        - name: ggun-accout
+          image: jinpold/accout:latest
+          ports:
+            - containerPort: 8082
+          imagePullPolicy: Always

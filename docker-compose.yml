@@ -1,0 +1,151 @@
+services:
+  eureka:
+    hostname: eureka-server
+    build:
+      context: ./server/eureka-server
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-eureka:latest
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - ggun-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS http://localhost:8761/actuator/health | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - ggun-network
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - ggun-network
+
+  gateway:
+    hostname: gateway-server
+    build:
+      context: ./server/gateway-server
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-gateway:latest
+    container_name: gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS http://localhost:8000/actuator/health | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  account:
+    hostname: account-service
+    build:
+      context: ./service/account-service
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-account:latest
+    container_name: account
+    ports:
+      - "8082:8082"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+
+  admin:
+    hostname: admin-service
+    build:
+      context: ./service/admin-service
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-admin:latest
+    container_name: admin
+    ports:
+      - "8081:8081"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+
+  chat:
+    hostname: chat-service
+    build:
+      context: ./service/chat-service
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-chat:latest
+    container_name: chat
+    ports:
+      - "8090:8090"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+
+  alarm:
+    hostname: alarm-service
+    build:
+      context: ./service/alarm-service
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-alarm:latest
+    container_name: alarm
+    ports:
+      - "8091:8091"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+
+  user:
+    hostname: user-service
+    build:
+      context: ./service/user-service
+      dockerfile: Dockerfile
+    image: bkwangho/ggun-user:latest
+    container_name: user
+    ports:
+      - "8083:8083"
+    depends_on:
+      gateway:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    networks:
+      - ggun-network
+
+networks:
+  ggun-network:
+    driver: bridge
