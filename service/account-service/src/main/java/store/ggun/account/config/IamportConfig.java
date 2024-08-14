@@ -1,6 +1,4 @@
 package store.ggun.account.config;
-
-
 import com.siot.IamportRestClient.IamportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,11 +17,6 @@ public class IamportConfig {
     public IamportClient iamportClient() {
         return new IamportClient(iamportKey, iamportSecret);
     }
-
-
-
-
-
 }
 
 
