@@ -3,6 +3,7 @@ package store.ggun.alarm.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.scheduling.annotation.Scheduled;
 import reactor.core.publisher.Sinks;
 import store.ggun.alarm.domain.dto.ChatDto;
 
@@ -17,3 +18,4 @@ public class ChatConfig {
         return new ConcurrentHashMap<>();
     }
 }
+

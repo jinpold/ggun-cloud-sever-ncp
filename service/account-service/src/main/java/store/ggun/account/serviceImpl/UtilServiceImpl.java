@@ -13,13 +13,6 @@ public class UtilServiceImpl implements UtilService {
         return min + (int)(Math.random()*(max-min));
     }
 
-    @Override
-    public double createRandomDouble(double min, double max){
-
-        return Math.round((min +
-                (Math.random()*(max-min)))*10)/10.0;
-    }
-    @Override
     public String createAccountNumber(String acnoType){
         String acno = "";
         if (acnoType.equals("01")) {

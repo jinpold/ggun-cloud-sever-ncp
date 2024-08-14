@@ -18,7 +18,7 @@ public class AdminEmailModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String enpEmail;
+    private String email;
     private String message;
 
 }

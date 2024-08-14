@@ -16,10 +16,13 @@ import java.util.List;
 @NoArgsConstructor
 
 public class UserDto {
-    private String Id;
+    private String id;
     private String name;
+    private String username ;
     private String email;
     private String password ;
     private String profile;
     private List<RoleModel> roles ;
+    @Builder.Default
+    private Boolean enabled = false;
 }

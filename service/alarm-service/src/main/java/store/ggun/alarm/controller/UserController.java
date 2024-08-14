@@ -3,13 +3,14 @@ package store.ggun.alarm.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import store.ggun.alarm.domain.model.Messenger;
+import store.ggun.alarm.domain.dto.UserDto;
 import store.ggun.alarm.domain.model.UserModel;
-import store.ggun.alarm.serviceImpl.UserServiceImpl;
+import store.ggun.alarm.service.UserService;
+
 
 
 @Slf4j
@@ -20,65 +21,50 @@ import store.ggun.alarm.serviceImpl.UserServiceImpl;
 public class UserController {
 
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
+    private final UserDto userDto;
 
-    @PostMapping("/login")
-    public Mono<Messenger> login(@RequestBody UserModel param) {
-        log.info("::: 로그인 컨트롤러 파라미터 : {}", param.toString());
-
-        // Messenger m = Messenger.builder().message("SUCCESS").build();
-        // Mono<ResponseEntity<Messenger>> helloWorld = Mono.just(ResponseEntity.ok(m));
-
-        //switchIfEmpty는 전달받은 값이 null인 경우 새로운 Mono/Flux 로 변환
-        //defaultIfEmpty 는  defaultIfEmpty는 null을 대체하는 값을 지정한다
-
-//        return userService.login(param).defaultIfEmpty(Messenger.builder().message("FAILURE").build());
-        return null;
+    @PostMapping("/save")
+    public ResponseEntity<Mono<UserModel>> save(@RequestBody UserDto userDto) {
+        log.info("adminDto: {}", userDto.getEmail());
+        return ResponseEntity.ok(userService.save(userDto));
     }
-
-
-    @GetMapping("/logout")
-    public Mono<Messenger> logout(@RequestHeader("Authorization") String accessToken) {
-        log.info("1- 로그아웃 접속토큰 : {}", accessToken);
-        Messenger m = Messenger.builder().message("SUCCESS").build();
-        Mono<Messenger> logout = Mono.just(m);
-        return logout;
+    @GetMapping("/{id}")
+    public ResponseEntity<Mono<UserModel>> findById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public Flux<UserModel> getAllUsers() {
-        return userServiceImpl.getAllUsers();
+    public ResponseEntity<Flux<UserModel>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Mono<UserModel>> update(@PathVariable String id, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.update(id,userDto));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Mono<Void>> delete(@PathVariable("id") String id) {
+        return ResponseEntity.ok(userService.deleteById(id));
     }
 
-    @GetMapping("/detail/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<UserModel> getUserById(@PathVariable("id") String userId) {
-        return userServiceImpl.getUserDetailById(userId);
+    @PutMapping("/switching/{id}")
+    public ResponseEntity<Mono<String>> switching(@PathVariable("id") String id) {
+        return ResponseEntity.ok(userService.switching(id));
     }
 
-    @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Messenger> saveUser(@RequestBody UserModel user) {
-        return userServiceImpl.addUser(user);
+    @GetMapping("/enabled")
+    public ResponseEntity<Flux<UserModel>> findAllByEnabled() {
+        return ResponseEntity.ok(userService.findAllByEnabled());
     }
 
-    @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<UserModel> updateUser(@PathVariable("id") String id, @RequestBody UserModel user) {
-        return userServiceImpl.updateUser(id, user);
+    @GetMapping("/countEnabled")
+    public ResponseEntity<Mono<Long>> countAdminsEnabledFalse() {
+        return ResponseEntity.ok(userService.countAdminsEnabledFalse());
     }
 
-    @DeleteMapping("/users/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteUser(@PathVariable("id") String id) {
-        return userServiceImpl.deleteUser(id);
-    }
-
-    @DeleteMapping("/users")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteAllUsers() {
-        return userServiceImpl.deleteAllUsers();
+    @GetMapping("/search")
+    public ResponseEntity<Flux<UserDto>> searchByName(@RequestParam String keyword) {
+        return ResponseEntity.ok(userService.searchByName(keyword));
     }
 }
 

@@ -7,14 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.ggun.admin.domain.dto.AdminArticleDto;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminArticleRepository;
 import store.ggun.admin.serviceImpl.AdminArticleService;
 
 import java.sql.SQLException;
 import java.util.List;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*") // 기존에 origins = http://localhost:3000 이던걸 보안 걸었음. 퍼사드 패턴
 @RestController
 @RequiredArgsConstructor
 @ApiResponses(value = {
@@ -28,7 +27,7 @@ public class AdminArticleController {
 
     @SuppressWarnings("static-access")
     @PostMapping( "/save")
-    public ResponseEntity<AdminMessengerModel> save(@RequestBody AdminArticleDto dto) {
+    public ResponseEntity<Messenger> save(@RequestBody AdminArticleDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.save(dto));
 
@@ -44,12 +43,12 @@ public class AdminArticleController {
         return ResponseEntity.ok(service.findById(id).orElseGet(AdminArticleDto::new));
     }
     @PutMapping ("/modify")
-    public ResponseEntity<AdminMessengerModel> modify(@RequestBody AdminArticleDto dto) {
+    public ResponseEntity<Messenger> modify(@RequestBody AdminArticleDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.modify(dto));
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<AdminMessengerModel> deleteById(@RequestParam("id") Long id) {
+    public ResponseEntity<Messenger> deleteById(@RequestParam("id") Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
@@ -58,9 +57,9 @@ public class AdminArticleController {
         return ResponseEntity.ok(service.count());
     }
     @GetMapping("/exists")
-    public ResponseEntity<AdminMessengerModel> existsById(@RequestParam("id") Long id){
+    public ResponseEntity<Messenger> existsById(@RequestParam("id") Long id){
         service.existsById(id);
-        return ResponseEntity.ok(new AdminMessengerModel());
+        return ResponseEntity.ok(new Messenger());
     }
     @GetMapping("/myList")
     public ResponseEntity<List<AdminArticleDto>> getArticleByBoardId(@RequestParam("id") Long boardId) {

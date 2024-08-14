@@ -3,6 +3,7 @@ package store.ggun.alarm.domain.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import store.ggun.alarm.domain.vo.Role;
 
 import java.util.List;
 
@@ -11,16 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "Id")
-@Document(collection = "members")
+@Document(collection = "users")
 public class UserModel {
 
-    @Id String Id ;
-    String firstName ;
-    String lastName ;
-    String email;
-    String password ;
-    String profile;
-    List <RoleModel> roles ;
+    @Id
+    private String id ;
+    private String firstName ;
+    private String lastName ;
+    private String username ;
+    private String name;
+    private String email;
+    private String password ;
+    private String profile;
+    private Boolean enabled;
+    List <RoleModel> role ;
+    List <Role> roles;
 
 }

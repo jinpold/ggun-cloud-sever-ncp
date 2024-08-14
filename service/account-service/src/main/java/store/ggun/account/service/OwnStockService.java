@@ -1,9 +1,8 @@
 package store.ggun.account.service;
 
-import store.ggun.account.domain.dto.Messenger;
+import store.ggun.account.domain.dto.OwnStockDto;
 import store.ggun.account.domain.model.AccountModel;
 import store.ggun.account.domain.model.OwnStockModel;
-import store.ggun.account.domain.dto.OwnStockDto;
 
 import java.util.List;
 

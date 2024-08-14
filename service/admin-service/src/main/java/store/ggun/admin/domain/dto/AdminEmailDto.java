@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class AdminEmailDto {
 
     private Long id;
-    private String enpEmail;
+    private String email;
     private String message;
 
 }

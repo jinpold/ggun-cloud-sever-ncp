@@ -19,7 +19,7 @@ public class AdminEmailController {
 
     @PostMapping("/send")
     public String sendEmail(@RequestBody AdminEmailModel adminEmailModel) {
-        adminEmailServiceImpl.sendEmail(adminEmailModel.getEnpEmail(), adminEmailModel.getMessage());
+        adminEmailServiceImpl.sendEmail(adminEmailModel.getEmail(), adminEmailModel.getMessage());
         return "이메일이 성공적으로 전송되었습니다.";
     }
 }

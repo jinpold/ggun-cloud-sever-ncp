@@ -7,7 +7,7 @@ import store.ggun.admin.domain.dto.AdminArticleDto;
 import store.ggun.admin.domain.model.AdminArticleModel;
 import store.ggun.admin.domain.model.AdminModel;
 import store.ggun.admin.domain.model.AdminBoardModel;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminRepository;
 import store.ggun.admin.repository.jpa.AdminArticleRepository;
 import store.ggun.admin.repository.jpa.AdminBoardRepository;
@@ -25,12 +25,12 @@ public class AdminArticleService implements store.ggun.admin.service.AdminArticl
 
     @Transactional
     @Override
-    public AdminMessengerModel save(AdminArticleDto adminArticleDto) {
+    public Messenger save(AdminArticleDto adminArticleDto) {
         AdminBoardModel adminBoardModel = adminBoardRepository.findById(adminArticleDto.getBoardId()).orElseThrow();
         AdminModel adminModel = adminRepository.findById(adminArticleDto.getWriterId()).orElseThrow();
         AdminArticleModel adminArticleModel = adminArticleRepository.save(dtoToEntity(adminArticleDto, adminBoardModel, adminModel));
 
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .id(adminArticleModel.getAdminBoardModel().getId()) //board id
                 .message(adminArticleModel instanceof AdminArticleModel ? "SUCCESS" : "FAILURE")
                 .build();
@@ -38,19 +38,19 @@ public class AdminArticleService implements store.ggun.admin.service.AdminArticl
     }
 
     @Override
-    public AdminMessengerModel deleteById(Long id) {
+    public Messenger deleteById(Long id) {
         adminArticleRepository.deleteById(id);
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .message(adminArticleRepository.findById(id).isPresent() ? "SUCCESS" : "FAILURE")
                 .build();
     }
     @Transactional
     @Override
-    public AdminMessengerModel modify(AdminArticleDto adminArticleDto) {
+    public Messenger modify(AdminArticleDto adminArticleDto) {
         Optional<AdminArticleModel> article = adminArticleRepository.findById(adminArticleDto.getId());
 
         if (article.isEmpty()) {
-            return AdminMessengerModel.builder()
+            return Messenger.builder()
                     .message("FAILURE")
                     .build();
         }
@@ -58,7 +58,7 @@ public class AdminArticleService implements store.ggun.admin.service.AdminArticl
         article.get().setTitle(adminArticleDto.getTitle());
         article.get().setContent(adminArticleDto.getContent());
         adminArticleRepository.save(article.get());
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .message("SUCCESS")
                 .build();
 

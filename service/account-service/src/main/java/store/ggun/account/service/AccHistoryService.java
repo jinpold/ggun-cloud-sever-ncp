@@ -1,11 +1,9 @@
 package store.ggun.account.service;
 
 import org.springframework.data.domain.Page;
-import store.ggun.account.domain.model.AccHistoryModel;
 import store.ggun.account.domain.dto.AccHistoryDto;
+import store.ggun.account.domain.model.AccHistoryModel;
 import store.ggun.account.domain.model.AccountModel;
-
-import java.util.List;
 
 public interface AccHistoryService extends CommandService<AccHistoryDto>, QueryService<AccHistoryDto> {
 

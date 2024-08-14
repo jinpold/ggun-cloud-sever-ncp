@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import store.ggun.alarm.domain.dto.FileDto;
 import store.ggun.alarm.domain.model.FileModel;
-import store.ggun.alarm.service.FileService;
+import store.ggun.alarm.serviceImpl.FileServiceImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import java.util.zip.ZipOutputStream;
 @RequiredArgsConstructor
 public class FileController {
 
-    private final FileService fileService;
+    private final FileServiceImpl fileServiceImpl;
 
     @PostMapping(value = "/uploadFiles", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<List<FileDto>> uploadFiles(ServerWebExchange exchange) {
@@ -56,7 +56,7 @@ public class FileController {
                                         .contentType(filePart.headers().getContentType().toString())
                                         .data(bytes)
                                         .build();
-                                return fileService.save(fileModel)
+                                return fileServiceImpl.save(fileModel)
                                         .doOnSuccess(savedFile -> log.info("File saved: {}", savedFile.getFilename()))
                                         .doOnError(e -> log.error("Error saving file: {}", filePart.filename(), e));
                             })
@@ -75,7 +75,7 @@ public class FileController {
 
     @GetMapping("/files/{id}") // 파일 1개 다운로드
     public Mono<ResponseEntity<byte[]>> getFile(@PathVariable("id") String id) {
-        return fileService.getFile(id)
+        return fileServiceImpl.getFile(id)
                 .map(fileModel -> {
                     String filename = fileModel.getFilename();
                     String encodedFilename = "";
@@ -97,7 +97,7 @@ public class FileController {
     @GetMapping("/files/download") // 알집으로 다운로드 (파일 2개 이상)
     public Mono<ResponseEntity<byte[]>> downloadFiles(@RequestParam List<String> ids) {
         return Flux.fromIterable(ids)
-                .flatMap(fileService::getFile)
+                .flatMap(fileServiceImpl::getFile)
                 .collectList()
                 .map(fileModels -> {
                     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -125,6 +125,23 @@ public class FileController {
                         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
                     }
                 });
+    }
+
+    @DeleteMapping("/delete")
+    public Mono<ResponseEntity<Void>> deleteAllFiles() {
+        return fileServiceImpl.getAllFiles()
+                .flatMap(file -> fileServiceImpl.deleteFileByUrl(file.getUrl())
+                        .then(fileServiceImpl.deleteFileById(file.getId())))
+                .then(Mono.just(ResponseEntity.noContent().<Void>build()));
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Void>> deleteFile(@PathVariable("id") String id) {
+        return fileServiceImpl.getFileById(id)
+                .flatMap(file -> fileServiceImpl.deleteFileByUrl(file.getUrl())
+                        .then(fileServiceImpl.deleteFileById(id))
+                        .thenReturn(ResponseEntity.noContent().<Void>build()))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     private FileDto toDto(FileModel fileModel) {

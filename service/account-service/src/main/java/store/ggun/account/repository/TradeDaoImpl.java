@@ -1,10 +1,10 @@
 package store.ggun.account.repository;
 
-import store.ggun.account.domain.model.QTradeModel;
-import store.ggun.account.domain.model.TradeModel;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import store.ggun.account.domain.model.QTradeModel;
+import store.ggun.account.domain.model.TradeModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,10 +18,6 @@ public class TradeDaoImpl implements TradeDao{
     private final QTradeModel trade = QTradeModel.tradeModel;
     @Override
     public List<TradeModel> getListByProductName(String prdtName) {
-
-        log.info("쿼리dsl {}",factory.selectFrom(trade)
-                .where(trade.prdtName.eq(prdtName))
-                .fetch());
 
         return factory.selectFrom(trade)
                 .where(trade.prdtName.eq(prdtName))

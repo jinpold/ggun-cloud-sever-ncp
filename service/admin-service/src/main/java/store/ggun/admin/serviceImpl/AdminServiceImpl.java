@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import store.ggun.admin.domain.dto.AdminDto;
 import store.ggun.admin.domain.model.AdminModel;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminRepository;
 import store.ggun.admin.security.JwtProvider;
 
@@ -17,17 +17,17 @@ import java.util.stream.Stream;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class AdminService implements store.ggun.admin.service.AdminService {
+public class AdminServiceImpl implements store.ggun.admin.service.AdminService {
 
     private final AdminRepository adminRepository;
     private final JwtProvider jwtProvider;
 
     @Transactional
     @Override
-    public AdminMessengerModel save(AdminDto adminDto) {
+    public Messenger save(AdminDto adminDto) {
         AdminModel ent = adminRepository.save(dtoToEntity(adminDto));
         System.out.println((ent instanceof AdminModel) ? "SUCCESS" : "FAILURE");
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .message((ent instanceof AdminModel) ? "SUCCESS" : "FAILURE")
                 .build();
     }
@@ -42,31 +42,32 @@ public class AdminService implements store.ggun.admin.service.AdminService {
 
     @Transactional
     @Override
-    public AdminMessengerModel modify(AdminDto adminDto) {
-        AdminModel adminModel = adminRepository.findById(adminDto.getId()).get();
-        if (adminDto.getUsername() != null && !adminDto.getUsername().equals("")) {
+    public Messenger modify(AdminDto adminDto) {
+        AdminModel adminModel = adminRepository.findById(adminDto.getId()).orElseThrow(() -> new RuntimeException("Admin not found"));
+
+        if (adminDto.getUsername() != null && !adminDto.getUsername().isEmpty()) {
             adminModel.setUsername(adminDto.getUsername());
         }
-        adminModel.setUsername(adminDto.getUsername());
+
         adminModel.setPassword(adminDto.getPassword());
         adminModel.setEmail(adminDto.getEmail());
         adminModel.setName(adminDto.getName());
         adminModel.setNumber(adminDto.getNumber());
         adminModel.setPhone(adminDto.getPhone());
         adminModel.setDepartment(adminDto.getDepartment());
-        adminModel.setPosition(adminModel.getPosition());
-        adminModel.setJob(adminModel.getJob());
-        adminModel.setRole(adminModel.getRole());
-        adminModel.setToken(adminModel.getToken());
+        adminModel.setPosition(adminDto.getPosition());
+        adminModel.setJob(adminDto.getJob());
+        adminModel.setRole(adminDto.getRole());
+        adminModel.setToken(adminDto.getToken());
         adminRepository.save(adminModel);
 
         return adminRepository.findById(adminDto.getId()).get().equals(adminModel) ?
-                AdminMessengerModel.builder().message("SUCCESS").build() :
-                AdminMessengerModel.builder().message("FAILURE").build();
+                Messenger.builder().message("SUCCESS").build() :
+                Messenger.builder().message("FAILURE").build();
     }
     @Transactional
     @Override
-    public AdminMessengerModel modifyRole(AdminDto adminDto) {
+    public Messenger modifyRole(AdminDto adminDto) {
         AdminModel adminModel = adminRepository.findById(adminDto.getId()).get();
         if (adminDto.getUsername() != null && !adminDto.getUsername().equals("")) {
             adminModel.setUsername(adminDto.getUsername());
@@ -75,13 +76,13 @@ public class AdminService implements store.ggun.admin.service.AdminService {
             adminModel.setRole(adminDto.getRole());
         }
         return adminRepository.findById(adminDto.getId()).get().equals(adminModel) ?
-                AdminMessengerModel.builder().message("SUCCESS").build() :
-                AdminMessengerModel.builder().message("FAILURE").build();
+                Messenger.builder().message("SUCCESS").build() :
+                Messenger.builder().message("FAILURE").build();
     }
 
     @Transactional
     @Override
-    public AdminMessengerModel update(AdminDto adminDto) {
+    public Messenger update(AdminDto adminDto) {
         AdminModel adminModel = adminRepository.findById(adminDto.getId())
                 .orElseThrow(() -> new RuntimeException("Admin not found"));
         // 비밀번호를 사원번호로 변경
@@ -94,21 +95,22 @@ public class AdminService implements store.ggun.admin.service.AdminService {
                 .map(password -> password.equals(adminDto.getNumber()))
                 .orElse(false);
 
-        return isPasswordUpdated ? AdminMessengerModel.builder().message("SUCCESS").build()
-                : AdminMessengerModel.builder().message("FAILURE").build();
+        return isPasswordUpdated ? Messenger.builder().message("SUCCESS").build()
+                : Messenger.builder().message("FAILURE").build();
     }
 
     @Override
-    public AdminMessengerModel deleteById(Long id) {
+    public Messenger deleteById(Long id) {
+        if (!adminRepository.existsById(id)) {
+            // ID가 존재하지 않는 경우
+            return Messenger.builder().message("FAILURE").build();
+        }
+
         adminRepository.deleteById(id);
-        return AdminMessengerModel.builder().message
-                (Stream.of(id)
-                        .filter(i -> existsById(i))
-                        .peek(i -> adminRepository.deleteById(i))
-                        .map(i -> "SUCCESS")
-                        .findAny()
-                        .orElseGet(()->"FAILURE")).build();
+        // 삭제가 완료되었으므로 SUCCESS 메시지 반환
+        return Messenger.builder().message("SUCCESS").build();
     }
+
     @Override
     public boolean existsById(Long id) {
         return adminRepository.existsById(id);

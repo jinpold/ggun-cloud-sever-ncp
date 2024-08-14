@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Repository
 public interface AdminRepository extends JpaRepository<AdminModel, Long> {
-    Optional<AdminModel> findAdminByUsername(String name);
+
     @Query("SELECT a FROM admins a WHERE a.email = :email")
     Optional<AdminModel> findAdminByEmail(@Param("email") String email);
+
+    @Query("SELECT a FROM admins a WHERE a.username = :username")
+    Optional<AdminModel> findAdminByUsername(@Param("username") String username);
+
 
     @Query("select count(id) as count from admins where email =:email")
     Integer existsByEmail(@Param("email") String username);

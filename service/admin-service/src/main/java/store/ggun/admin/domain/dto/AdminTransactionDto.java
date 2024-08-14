@@ -1,4 +1,5 @@
 package store.ggun.admin.domain.dto;
+
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Data;
@@ -13,55 +14,44 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class AdminTransactionDto {
 
-    private Long id;
-    private String username;
-    private String buyStock;
-    private String buyQuantity;
-    private String buyTotal;
-    private String sellStock;
-    private String sellQuantity;
-    private String sellTotal;
-    private String tradeDate;
-    private String closingPrice;
-    private String netProfit;
-    private String purchaseFee;
-    private String sellingFee;
-    private String purchaseTax;
-    private String sellingTax;
-    private String purchaseTotal;
-    private String sellingTotal;
-    private String standardFee;
-    private String baseTax;
-    private String tradeTotal;
-
+    private long id;
+    private long accountId;
+    private String ordDvsnName;
+    private int ordDvsnCd;
+    private int sllBuyDvsnCd;
+    private String pdno;
+    private String prdtName;
+    private int ordQty;
+    private long ccldPrvs;
+    private String tradeType;
+    private long sellingFee;
+    private long sellingTax;
+    private double standardFee;
+    private double baseTax;
+    private String color;
+    private String regDate;
+    private String modDate;
 
     @QueryProjection
-    public AdminTransactionDto(Long id, String username, String buyStock,
-                               String buyQuantity, String buyTotal, String sellStock,
-                               String sellQuantity, String sellTotal, String tradeDate,
-                               String closingPrice, String netProfit, String purchaseFee,
-                               String sellingFee, String purchaseTax, String sellingTax,
-                               String purchaseTotal, String sellingTotal, String standardFee,
-                               String baseTax, String tradeTotal) {
+    public AdminTransactionDto(long id, long accountId ,String ordDvsnName, int ordDvsnCd, int sllBuyDvsnCd, String pdno,
+                               String prdtName, int ordQty, long ccldPrvs, String tradeType, long sellingFee,
+                               long sellingTax, double standardFee, double baseTax, String color, String regDate, String modDate) {
         this.id = id;
-        this.username = username;
-        this.buyStock = buyStock;
-        this.buyQuantity = buyQuantity;
-        this.buyTotal = buyTotal;
-        this.sellStock = sellStock;
-        this.sellQuantity = sellQuantity;
-        this.sellTotal = sellTotal;
-        this.tradeDate = tradeDate;
-        this.closingPrice = closingPrice;
-        this.netProfit = netProfit;
-        this.purchaseFee = purchaseFee;
+        this.accountId = accountId;
+        this.ordDvsnName = ordDvsnName;
+        this.ordDvsnCd = ordDvsnCd;
+        this.sllBuyDvsnCd = sllBuyDvsnCd;
+        this.pdno = pdno;
+        this.prdtName = prdtName;
+        this.ordQty = ordQty;
+        this.ccldPrvs = ccldPrvs;
+        this.tradeType = tradeType;
         this.sellingFee = sellingFee;
-        this.purchaseTax = purchaseTax;
         this.sellingTax = sellingTax;
-        this.purchaseTotal = purchaseTotal;
-        this.sellingTotal = sellingTotal;
         this.standardFee = standardFee;
         this.baseTax = baseTax;
-        this.tradeTotal = tradeTotal;
+        this.color = color;
+        this.regDate = regDate;
+        this.modDate = modDate;
     }
 }

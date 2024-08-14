@@ -6,6 +6,7 @@ import reactor.core.publisher.Mono;
 import store.ggun.alarm.domain.dto.ChatDto;
 import store.ggun.alarm.domain.dto.RoomDto;
 import store.ggun.alarm.domain.model.ChatModel;
+import store.ggun.alarm.domain.model.Messenger;
 import store.ggun.alarm.domain.model.RoomModel;
 
 
@@ -17,4 +18,8 @@ public interface RoomService extends CommandService<RoomModel, RoomDto>, QuerySe
     Flux<ChatModel> findChatsByRoomId(String roomId);
     Flux<ServerSentEvent<ChatDto>> subscribeByRoomId(String roomId);
     Mono<Integer> countConnection();
+    Mono<RoomModel> createRoom(String roomId);
+    Mono<Messenger> deleteRoom(String roomId);
+    Mono<Messenger> deleteChat(String chatId);
+    Flux<ChatModel> findAllChats();
 }

@@ -24,11 +24,17 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     @Override
     public PrincipalUserDetails login(LoginDto dto) {
-        AdminModel admin = adminRepository.findAdminByEmail(dto.getEmail())
+        // username으로 관리자 검색 / email로 수정 할 수도 있음 (Oauth2 & local login 구분
+        AdminModel admin = adminRepository.findAdminByUsername(dto.getUsername())
                 .orElseThrow(() -> new LoginException(ExceptionStatus.UNAUTHORIZED, "존재하지 않는 관리자입니다."));
-        log.info("Email: {}, Password: {}", dto.getEmail(), dto.getPassword());
+
+        log.info("Username: {}, Password: {}", dto.getUsername(), dto.getPassword());
+
+        // 비밀번호 일치 여부 확인
         if (admin.getPassword().equals(dto.getPassword())) {
             log.info("admin.getPassword: {}, dto.Password: {}", admin.getPassword(), dto.getPassword());
+
+            // UserDetails 객체 생성
             PrincipalUserDetails userDetails = new PrincipalUserDetails(UserModel.builder()
                     .id(String.valueOf(admin.getId()))
                     .name(admin.getName())
@@ -36,6 +42,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                     .email(admin.getEmail())
                     .roles(List.of(Role.ROLE_ADMIN))
                     .build());
+
             log.info("PrincipalUserDetails: {}", userDetails);
             return userDetails;
         } else {

@@ -14,7 +14,7 @@ public class AdminEmailServiceImpl implements AdminEmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    private static final String TO_EMAIL = "sjrkchdkdy@gmail.com";
+    private static final String TO_EMAIL = "bkwangho@naver.com";
 
     public void sendEmail(String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();

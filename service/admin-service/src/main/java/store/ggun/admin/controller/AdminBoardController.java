@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.ggun.admin.domain.dto.AdminBoardDto;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.pagination.PageRequestVo;
 import store.ggun.admin.serviceImpl.AdminBoardService;
 
@@ -28,7 +28,7 @@ public class AdminBoardController {
 
     @SuppressWarnings("static-access")
     @PostMapping( "/save")
-    public ResponseEntity<AdminMessengerModel> save(@RequestBody AdminBoardDto dto) {
+    public ResponseEntity<Messenger> save(@RequestBody AdminBoardDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.save(dto));
     }
@@ -43,12 +43,12 @@ public class AdminBoardController {
         return ResponseEntity.ok(service.findById(id).orElseGet(AdminBoardDto::new));
     }
     @PutMapping ("/modify")
-    public ResponseEntity<AdminMessengerModel> modify(@RequestBody AdminBoardDto dto) {
+    public ResponseEntity<Messenger> modify(@RequestBody AdminBoardDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.modify(dto));
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<AdminMessengerModel> deleteById(@RequestParam("id") Long id) {
+    public ResponseEntity<Messenger> deleteById(@RequestParam("id") Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
@@ -58,9 +58,9 @@ public class AdminBoardController {
     }
 
     @GetMapping("/exists/{id}")
-    public ResponseEntity<AdminMessengerModel> existsById(PageRequestVo vo){
+    public ResponseEntity<Messenger> existsById(PageRequestVo vo){
         service.existsById(0L);
-        return ResponseEntity.ok(new AdminMessengerModel());
+        return ResponseEntity.ok(new Messenger());
     }
 
 

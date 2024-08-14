@@ -1,5 +1,6 @@
 package store.ggun.admin.repository.dao;
 import store.ggun.admin.domain.dto.AdminTransactionDto;
+import store.ggun.admin.domain.dto.TradeMetrics;
 
 import java.util.List;
 import java.util.Map;
@@ -11,17 +12,17 @@ public interface AdminTransactionDao {
 
     List<AdminTransactionDto> getAllTransactions();
 
-    Map<String, Double> getTotalByDate();
+    Map<String, Map<String, TradeMetrics>> getTotalByDate();
 
     Map<String, Map<String, Integer>> getQuantityByDate();
 
-    Long getTransactionsById();
+    Map<String, Map<String, Long>> getNetProfitByDate();
 
-    List<String> getTransactionsByUsername();
+    Map<String, Map<String, Map<String, Integer>>> getProductByDate();
 
-    Map<String, Double> getNetProfitByDate();
+    Map<String, Map<String, Integer>> getColorByDate();
 
-    List<AdminTransactionDto> getTransactionsByNetProfit();
+    Map<String, Integer> getColorByCount();
 
 }
 

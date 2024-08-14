@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.ggun.admin.domain.dto.AdminDto;
 import store.ggun.admin.domain.model.AdminModel;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminRepository;
 import store.ggun.admin.service.AdminService;
 
@@ -31,23 +31,23 @@ public class AdminController {
     // ---------------------------------Command---------------------------------------
     @SuppressWarnings("static-access")
     @PostMapping( "/save")
-    public ResponseEntity<AdminMessengerModel> save(@RequestBody AdminDto dto) {
+    public ResponseEntity<Messenger> save(@RequestBody AdminDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.save(dto));
 
     }
     @PatchMapping ("/modify") // 회원 정보변경
-    public ResponseEntity<AdminMessengerModel> modify(@RequestBody AdminDto dto) {
+    public ResponseEntity<Messenger> modify(@RequestBody AdminDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.modify(dto));
     }
-    @PatchMapping ("/modifyRole") // 회원 정보변경
-    public ResponseEntity<AdminMessengerModel> modifyRole(@RequestBody AdminDto dto) {
+    @PatchMapping ("/modifyRole") // 회원 정보(role / 권한) 변경
+    public ResponseEntity<Messenger> modifyRole(@RequestBody AdminDto dto) {
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.modify(dto));
     }
     @PatchMapping("/update") // 비밀번호 초기화
-    public ResponseEntity<AdminMessengerModel> update(@RequestBody AdminDto dto) {
+    public ResponseEntity<Messenger> update(@RequestBody AdminDto dto) {
         log.info("입력받은 정보 : {}", dto);
         return ResponseEntity.ok(service.update(dto));
     }
@@ -65,7 +65,7 @@ public class AdminController {
         return ResponseEntity.ok(service.findById(id).orElseGet(AdminDto::new));
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<AdminMessengerModel> deleteById(@RequestParam("id") Long id) {
+    public ResponseEntity<Messenger> deleteById(@RequestParam("id") Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
@@ -79,6 +79,7 @@ public class AdminController {
     public ResponseEntity<Long> count()  {
         return ResponseEntity.ok(service.count());
     }
+
     @PostMapping("/searchName")
     public ResponseEntity<Optional<AdminModel>> findUsersByName(@RequestBody AdminDto param) {
         //log.info("입력받은 정보 : {}", name );

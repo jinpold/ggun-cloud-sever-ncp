@@ -1,9 +1,9 @@
 package store.ggun.admin.service;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 
 public interface AdminCommandService<T> {
 
-    AdminMessengerModel save (T t);
-    AdminMessengerModel deleteById (Long id);
-    AdminMessengerModel modify (T t);
+    Messenger save (T t);
+    Messenger deleteById (Long id);
+    Messenger modify (T t);
 }

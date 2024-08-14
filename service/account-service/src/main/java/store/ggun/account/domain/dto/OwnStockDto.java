@@ -31,5 +31,6 @@ public class OwnStockDto {
     private long buyingAmount;
     private String regDate;
     private String modDate;
+    private String color;
 
 }

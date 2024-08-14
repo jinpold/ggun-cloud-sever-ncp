@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import store.ggun.admin.domain.dto.AdminBoardDto;
-import store.ggun.admin.domain.model.AdminMessengerModel;
+import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminBoardRepository;
 
 import java.sql.SQLException;
@@ -17,9 +17,9 @@ public class AdminBoardService implements store.ggun.admin.service.AdminBoardSer
     private final AdminBoardRepository repository;
 
     @Override
-    public AdminMessengerModel save(AdminBoardDto t) {
+    public Messenger save(AdminBoardDto t) {
         repository.save(dtoToEntity(t));
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .message("성공")
                 .status(200)
                 .build();
@@ -34,22 +34,22 @@ public class AdminBoardService implements store.ggun.admin.service.AdminBoardSer
     }
     @Transactional
     @Override
-    public AdminMessengerModel modify(AdminBoardDto adminBoardDto) {
+    public Messenger modify(AdminBoardDto adminBoardDto) {
         repository.save(dtoToEntity(adminBoardDto));
-        return AdminMessengerModel.builder()
+        return Messenger.builder()
                 .message("성공")
                 .status(200)
                 .build();
     }
     @Override
-    public AdminMessengerModel deleteById(Long id) {
+    public Messenger deleteById(Long id) {
         repository.deleteById(id);
         return existsById(id) ?
-                AdminMessengerModel.builder()
+                Messenger.builder()
                         .message("회원탈퇴 완료")
                         .status(200)
                         .build() :
-                AdminMessengerModel.builder()
+                Messenger.builder()
                         .message("회원탈퇴 실패")
                         .status(200)
                         .build();

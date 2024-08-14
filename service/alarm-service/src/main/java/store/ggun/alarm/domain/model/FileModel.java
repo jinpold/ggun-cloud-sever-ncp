@@ -20,6 +20,7 @@ public class FileModel {
     private String filename;
     private String contentType;
     private byte[] data;
+    private String url;
     @CreatedDate
     private LocalDateTime createdDate;
     @LastModifiedDate

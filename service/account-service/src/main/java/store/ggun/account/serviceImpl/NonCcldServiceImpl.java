@@ -1,10 +1,9 @@
 package store.ggun.account.serviceImpl;
 
-import store.ggun.account.domain.dto.Messenger;
-import store.ggun.account.domain.dto.NonCcldDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import store.ggun.account.domain.model.AccountModel;
+import store.ggun.account.domain.dto.Messenger;
+import store.ggun.account.domain.dto.NonCcldDto;
 import store.ggun.account.repository.AccountRepository;
 import store.ggun.account.repository.NonCcldRepository;
 import store.ggun.account.service.NonCcldService;
@@ -19,7 +18,6 @@ public class NonCcldServiceImpl implements NonCcldService {
 
     private final NonCcldRepository repository;
     private final AccountRepository accountRepository;
-
 
     @Override
     public Messenger save(NonCcldDto nonCcldDto) {

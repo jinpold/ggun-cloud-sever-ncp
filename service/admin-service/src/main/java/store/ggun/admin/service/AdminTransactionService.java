@@ -1,65 +1,63 @@
 package store.ggun.admin.service;
+
 import store.ggun.admin.domain.dto.AdminTransactionDto;
+import store.ggun.admin.domain.dto.TradeMetrics;
 import store.ggun.admin.domain.model.AdminTransactionModel;
 
+import java.util.List;
 import java.util.Map;
-
 
 public interface AdminTransactionService extends AdminCommandService<AdminTransactionDto>, AdminQueryService<AdminTransactionDto> {
 
-    Map<String, Double> getNetProfitByDate();
+    Map<String, Map<String, Long>> getNetProfitByDate();
 
-    Map<String, Double> getTotalByDate();
+    Map<String, Map<String, TradeMetrics>> getTotalByDate();
 
     Map<String, Map<String, Integer>> getQuantityByDate();
 
-    default AdminTransactionModel dtoToEntity(AdminTransactionDto dto){
+    Map<String, Map<String, Map<String, Integer>>> getProductByDate();
+
+    Long countAllTransactions();
+
+    Map<String, Map<String, Integer>> getColorByDate();
+
+    Map<String, Integer> getColorByCount();
+
+    default AdminTransactionModel dtoToEntity(AdminTransactionDto dto) {
         return AdminTransactionModel.builder()
                 .id(dto.getId())
-                .username(dto.getUsername())
-                .buyStock(dto.getBuyStock())
-                .buyQuantity(dto.getBuyQuantity())
-                .buyTotal(dto.getBuyTotal())
-                .sellStock(dto.getSellStock())
-                .sellQuantity(dto.getSellQuantity())
-                .sellTotal(dto.getSellTotal())
-                .tradeDate(dto.getTradeDate())
-                .closingPrice(dto.getClosingPrice())
-                .netProfit(dto.getNetProfit())
-                .purchaseFee(dto.getPurchaseFee())
+                .ordDvsnName(dto.getOrdDvsnName())
+                .ordDvsnCd(dto.getOrdDvsnCd())
+                .sllBuyDvsnCd(dto.getSllBuyDvsnCd())
+                .pdno(dto.getPdno())
+                .prdtName(dto.getPrdtName())
+                .ordQty(dto.getOrdQty())
+                .ccldPrvs(dto.getCcldPrvs())
+                .tradeType(dto.getTradeType())
                 .sellingFee(dto.getSellingFee())
-                .purchaseTax(dto.getPurchaseTax())
                 .sellingTax(dto.getSellingTax())
-                .purchaseTotal(dto.getPurchaseTotal())
-                .sellingTotal(dto.getSellingTotal())
                 .standardFee(dto.getStandardFee())
                 .baseTax(dto.getBaseTax())
-                .tradeTotal(dto.getTradeTotal())
+                .color(dto.getColor())
                 .build();
     }
 
     default AdminTransactionDto entityToDto(AdminTransactionModel ent) {
         return AdminTransactionDto.builder()
                 .id(ent.getId())
-                .username(ent.getUsername())
-                .buyStock(ent.getBuyStock())
-                .buyQuantity(ent.getBuyQuantity())
-                .buyTotal(ent.getBuyTotal())
-                .sellStock(ent.getSellStock())
-                .sellQuantity(ent.getSellQuantity())
-                .sellTotal(ent.getSellTotal())
-                .tradeDate(ent.getTradeDate())
-                .closingPrice(ent.getClosingPrice())
-                .netProfit(ent.getNetProfit())
-                .purchaseFee(ent.getPurchaseFee())
+                .ordDvsnName(ent.getOrdDvsnName())
+                .ordDvsnCd(ent.getOrdDvsnCd())
+                .sllBuyDvsnCd(ent.getSllBuyDvsnCd())
+                .pdno(ent.getPdno())
+                .prdtName(ent.getPrdtName())
+                .ordQty(ent.getOrdQty())
+                .ccldPrvs(ent.getCcldPrvs())
+                .tradeType(ent.getTradeType())
                 .sellingFee(ent.getSellingFee())
-                .purchaseTax(ent.getPurchaseTax())
                 .sellingTax(ent.getSellingTax())
-                .purchaseTotal(ent.getPurchaseTotal())
-                .sellingTotal(ent.getSellingTotal())
                 .standardFee(ent.getStandardFee())
                 .baseTax(ent.getBaseTax())
-                .tradeTotal(ent.getTradeTotal())
+                .color(ent.getColor())
                 .build();
     }
 }

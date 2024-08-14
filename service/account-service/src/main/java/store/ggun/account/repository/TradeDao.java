@@ -1,10 +1,9 @@
 package store.ggun.account.repository;
 
-import store.ggun.account.domain.model.TradeModel;
 import org.springframework.stereotype.Repository;
+import store.ggun.account.domain.model.TradeModel;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @Repository

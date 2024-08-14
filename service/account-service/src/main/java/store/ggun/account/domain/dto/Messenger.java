@@ -1,7 +1,10 @@
 package store.ggun.account.domain.dto;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

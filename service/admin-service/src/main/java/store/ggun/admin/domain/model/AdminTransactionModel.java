@@ -1,4 +1,5 @@
 package store.ggun.admin.domain.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,44 +14,31 @@ public class AdminTransactionModel extends AdminBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
-    @Column(name = "buy_stock")
-    private String buyStock;
-    @Column(name = "buy_quantity")
-    private String buyQuantity;
-    @Column(name = "buy_total")
-    private String buyTotal;
-    @Column(name = "sell_stock")
-    private String sellStock;
-    @Column(name = "sell_quantity")
-    private String sellQuantity;
-    @Column(name = "sell_total")
-    private String sellTotal;
-    @Column(name = "trade_date")
-    private String tradeDate;
-    @Column(name = "closing_Price")
-    private String closingPrice;
-    @Column(name = "net_profit")
-    private String netProfit;
-    @Column(name = "purchase_fee")
-    private String purchaseFee;
+    private long id;
+    @Column(name = "account_id")
+    private long accountId;
+    @Column(name = "ord_dvsn_name")
+    private String ordDvsnName; //주문구분명 : 시장가 or 지정가
+    @Column(name = "ord_dvsn_cd")
+    private int ordDvsnCd; //주문 구분 코드  1:시장가 or 2:지정가
+    @Column(name = "sll_buy_dvsn_cd")
+    private int sllBuyDvsnCd; // 매도 매수 구분코드  1:매수 or 2:매도
+    private String pdno; //상품번호
+    @Column(name = "prdt_name")
+    private String prdtName; //상품명
+    @Column(name = "ord_qty")
+    private int ordQty; //주문 수량
+    @Column(name = "ccld_prvs")
+    private long ccldPrvs; // 평균가(체결가, 지정가) - 이름만 평균가임
+    @Column(name = "trade_type")
+    private String tradeType; // 거래타입(ai,user)
     @Column(name = "selling_fee")
-    private String sellingFee;
-    @Column(name = "purchase_tax")
-    private String purchaseTax;
+    private long sellingFee; //매도 수수료 (순이익)
     @Column(name = "selling_tax")
-    private String sellingTax;
-    @Column(name = "purchase_total")
-    private String purchaseTotal;
-    @Column(name = "selling_total")
-    private String sellingTotal;
+    private long sellingTax; //매도 세금
     @Column(name = "standard_fee")
-    private String standardFee;
+    private double standardFee; // 수수료(기준)0.015%
     @Column(name = "base_tax")
-    private String baseTax;
-    @Column(name = "trade_total")
-    private String tradeTotal;
-
+    private double baseTax; //세금(기준)0.020%
+    private String color; //색상
 }
-

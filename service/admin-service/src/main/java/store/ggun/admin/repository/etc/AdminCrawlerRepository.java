@@ -15,11 +15,12 @@ import java.util.List;
 @Repository
 @Slf4j
 public class AdminCrawlerRepository {
-    private List<AdminCrawlerModel> articles;
+    private List<AdminCrawlerModel> crawlers = new ArrayList<>();
+
     public List<AdminCrawlerModel> findNews() throws IOException {
         try {
             Document doc = Jsoup.connect("https://news.naver.com/breakingnews/section/101/258").get();
-            this.articles = new ArrayList<>();
+            crawlers.clear();  // 리스트를 초기화하여 이전 데이터를 제거
 
             Elements articleElements = doc.select("ul.sa_list > li.sa_item");
 
@@ -29,12 +30,15 @@ public class AdminCrawlerRepository {
                 String content = articleElement.select("div.sa_text_lede").text();
                 String imgSrc = articleElement.select("img").attr("data-src");
 
-                articles.add(new AdminCrawlerModel(imgLink, title, content, imgSrc));
+                crawlers.add(new AdminCrawlerModel(imgLink, title, content, imgSrc));
             }
 
+            log.info("News successfully crawled. Total articles: {}", crawlers.size());
+
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error crawling news", e);
+            throw e;  // 예외를 상위로 던져서 적절히 처리
         }
-        return articles;
+        return crawlers;
     }
 }
