@@ -1,12 +1,11 @@
 #version: '3.8'
 #services:
-#  #  config:
-#  #    container_name: config_server
-#  #    image: bkwangho/ggun-config:latest
-#  #    ports:
-#  #      - "8888:8888"
-#  #    restart: always
-#  #
+#  config:
+#    container_name: config_server
+#    image: jinpold/ggun-config-server:latest
+#    ports:
+#      - "8888:8888"
+#    restart: always
 #  mysql:
 #    container_name: mysql
 #    image: mysql:latest
