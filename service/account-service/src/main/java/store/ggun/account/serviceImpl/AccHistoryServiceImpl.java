@@ -2,10 +2,6 @@ package store.ggun.account.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import store.ggun.account.domain.dto.AccHistoryDto;
 import store.ggun.account.domain.dto.Messenger;
@@ -14,8 +10,6 @@ import store.ggun.account.domain.model.AccountModel;
 import store.ggun.account.repository.AccHistoryRepository;
 import store.ggun.account.repository.AccountRepository;
 import store.ggun.account.service.AccHistoryService;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
