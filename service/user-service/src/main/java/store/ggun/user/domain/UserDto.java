@@ -1,11 +1,16 @@
 package store.ggun.user.domain;
 
 import com.querydsl.core.annotations.QueryProjection;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import store.ggun.user.domain.vo.Role;
+
+import java.util.List;
 
 
 @Component
@@ -29,10 +34,12 @@ public class UserDto extends BaseEntity {
     private String color;
     private String investmentPropensity;
     private String token;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role roles;
+
 
     @QueryProjection
-    public UserDto(Long id, String username, String password, String name, String age, String sex, String email, String ssnF, String ssnS, String address, String phone, Long asset, String color, String investmentPropensity, String token, String role) {
+    public UserDto(Long id, String username, String password, String name, String age, String sex, String email, String ssnF, String ssnS, String address, String phone, Long asset, String color, String investmentPropensity, String token, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -48,6 +55,6 @@ public class UserDto extends BaseEntity {
         this.color = color;
         this.investmentPropensity = investmentPropensity;
         this.token = token;
-        this.role = role;
+        this.roles = role;
     }
 }

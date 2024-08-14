@@ -23,14 +23,13 @@ import java.util.Optional;
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
 })
 @RequiredArgsConstructor
-@RequestMapping(path="")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping("/modify")
     public ResponseEntity<TokenVo> modify(@RequestBody UserDto userDto, @RequestHeader String id){
+        log.info("ghkrdlds ID {} ", id);
         userDto.setId(Long.valueOf(id));
         return ResponseEntity.ok(userService.modify(userDto));
     }

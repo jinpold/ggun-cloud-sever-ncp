@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.ggun.account.domain.dto.AccountDto;
 import store.ggun.account.domain.dto.Messenger;
+import store.ggun.account.domain.dto.OwnStockDto;
 import store.ggun.account.service.AccountService;
 
 import java.time.LocalDateTime;
@@ -52,8 +53,6 @@ public class AccountController {
         return ResponseEntity.ok(service.deposit(accountDto));
     }
 
-
-
     @PostMapping("/withdraw")
     public ResponseEntity<Messenger> withdraw(@RequestBody AccountDto accountDto){
         log.info("출금 입력정보 {} ",accountDto);
@@ -69,6 +68,17 @@ public class AccountController {
     public ResponseEntity<Messenger> deleteById(@RequestParam long id){
         return ResponseEntity.ok(service.deleteById(id));
     }
+
+    @PostMapping("/totalBalance")
+    public ResponseEntity<Messenger> getTotalBalanceByUser(@RequestBody  List<OwnStockDto> accountDto ){
+        return ResponseEntity.ok(service.getTotalBalanceByUser(accountDto));
+    }
+
+    @GetMapping("/existsAI")
+    public ResponseEntity<Boolean> existsAIById(@RequestParam long id,@RequestParam String acType){
+        return ResponseEntity.ok(service.checkAiAc(id,acType));
+    }
+
 
     @GetMapping("/list")
     public ResponseEntity<List<AccountDto>> findByUser(@RequestParam long id){

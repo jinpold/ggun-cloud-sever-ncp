@@ -1,0 +1,61 @@
+#version: '3.8'
+#services:
+#  config:
+#    container_name: config_server
+#    image: bkwangho/ggun-config:latest
+#    ports:
+#      - "8888:8888"
+#    restart: always
+#
+#  mysql:
+#    container_name: mysql
+#    image: mysql:latest
+#    volumes:
+#      - ./mysql/ggun/etc/mysql/conf.d:/etc/mysql/conf.d:ro
+#      - ./mysql/ggun/var/lib/mysql:/var/lib/mysql
+#      - ./mysql/ggun/var/log/mysql:/var/log/mysql
+#    environment:
+#      - MYSQL_DATABASE=ggundb
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_ROOT_HOST=%
+#    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+#    ports:
+#      - "3306:3306"
+#    restart: always
+#    networks:
+#      - ggun-network
+#
+#  mongodb:
+#    container_name: mongo
+#    image: mongo:latest
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - ./mongodb:/data/db
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=root
+#      - MONGO_INITDB_ROOT_PASSWORD=password
+#      - MONGO_INITDB_DATABASE=ggundb
+#    restart: always
+#    networks:
+#      - ggun-network
+#
+#  redis:
+#    container_name: redis
+#    image: redis:latest
+#    ports:
+#      - 6379:6379
+#    command: redis-server --requirepass password
+#    volumes:
+#      - ./redis/data:/data
+#      - ./redis/conf/redis.conf:/usr/local/conf/redis.conf
+#    labels:
+#      - "name=redis"
+#      - "mode=standalone"
+#    restart: always
+#    networks:
+#      - ggun-network
+#
+#networks:
+#  ggun-network:
+#    driver: bridge

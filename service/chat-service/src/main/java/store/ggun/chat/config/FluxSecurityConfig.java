@@ -1,4 +1,4 @@
-//package store.ggun.chat.config;
+package store.ggun.chat.config;//package store.ggun.chat.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;

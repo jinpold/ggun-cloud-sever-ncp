@@ -8,6 +8,7 @@ import store.ggun.account.domain.dto.AccHistoryDto;
 import store.ggun.account.domain.dto.Messenger;
 import store.ggun.account.service.AccHistoryService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,11 +29,15 @@ public class AccHistoryController {
         return ResponseEntity.ok(service.deleteById(id));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<Page<AccHistoryDto>> findAll(@RequestParam Long id, @RequestParam(value="page", defaultValue="0") int page){
-        return ResponseEntity.ok(service.findByAccount(id,page));
-    }
+//    @GetMapping("/list")
+//    public ResponseEntity<Page<AccHistoryDto>> findAll(@RequestParam Long id, @RequestParam(value="page", defaultValue="0") int page){
+//        return ResponseEntity.ok(service.findByAccount(id,page));
+//    }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<AccHistoryDto>> findAll(@RequestParam Long id){
+        return ResponseEntity.ok(service.findByAccount(id));
+    }
     @GetMapping("/detail")
     public ResponseEntity<Optional<AccHistoryDto>> findById(@RequestParam long id){
         return ResponseEntity.ok(service.findById(id));

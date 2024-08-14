@@ -24,7 +24,7 @@ spec:
           image: jinpold/gateway:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8000
+            - containerPort: 443
         - name: ggun-user
           image: jinpold/user:latest
           imagePullPolicy: Always
@@ -45,8 +45,8 @@ spec:
           ports:
             - containerPort: 8081
           imagePullPolicy: Always
-        - name: ggun-accout
-          image: jinpold/accout:latest
+        - name: ggun-account
+          image: jinpold/account:latest
           ports:
             - containerPort: 8082
           imagePullPolicy: Always

@@ -5,6 +5,8 @@ import store.ggun.account.domain.dto.AccHistoryDto;
 import store.ggun.account.domain.model.AccHistoryModel;
 import store.ggun.account.domain.model.AccountModel;
 
+import java.util.List;
+
 public interface AccHistoryService extends CommandService<AccHistoryDto>, QueryService<AccHistoryDto> {
 
 
@@ -29,5 +31,5 @@ public interface AccHistoryService extends CommandService<AccHistoryDto>, QueryS
     }
 
 
-    Page<AccHistoryDto> findByAccount(Long id, int page);
+    List<AccHistoryDto> findByAccount(Long id);
 }

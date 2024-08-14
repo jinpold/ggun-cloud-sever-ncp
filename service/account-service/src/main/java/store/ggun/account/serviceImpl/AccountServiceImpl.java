@@ -1,19 +1,25 @@
 package store.ggun.account.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.ggun.account.domain.dto.AccountDto;
 import store.ggun.account.domain.dto.Messenger;
+import store.ggun.account.domain.dto.OwnStockDto;
 import store.ggun.account.domain.model.AccHistoryModel;
 import store.ggun.account.domain.model.AccountModel;
+import store.ggun.account.domain.model.OwnStockModel;
 import store.ggun.account.repository.AccHistoryRepository;
 import store.ggun.account.repository.AccountRepository;
 import store.ggun.account.repository.OwnStockRepository;
 import store.ggun.account.service.AccountService;
+import store.ggun.account.service.OwnStockService;
 import store.ggun.account.service.UtilService;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,6 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository repository;
@@ -57,8 +64,8 @@ public class AccountServiceImpl implements AccountService {
                 .message(accountModel instanceof AccountModel ? "SUCCESS" : "FAIURE")
                 .build();
     }
-
-    private boolean checkAiAc(Long id, String acType) {
+    @Override
+    public boolean checkAiAc(Long id, String acType) {
         return repository.existsByUserIdAndAcType(id, acType);
     }
 
@@ -94,13 +101,81 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Messenger getTotalBalanceByUser(List<OwnStockDto> accountDto) {
+        List<AccountDto> accountList = repository.findByUserId(accountDto.get(0).getUserId())
+                .stream().map(i -> entityToDto(i)).toList();
+
+        log.info("userid  : {}",accountDto.get(0).getUserId());
+        log.info("리스트,======================= : {}",accountList);
+        long totalbalance = 0;
+        for (AccountDto account :  accountList) {
+            totalbalance += getbalance(account.getId());
+            totalbalance += getTotalProfit(accountDto).getEvaluatedAmount();
+            log.info("여기 : {}",totalbalance);
+        }
+        return Messenger.builder()
+                .message(totalbalance+"")
+                .build();
+    }
+    private List<OwnStockDto> getProfit(List<OwnStockDto> ownStockDtoList) {
+        List<OwnStockDto> list = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        for (OwnStockDto ownStockDto : ownStockDtoList) {
+            Optional<OwnStockModel> stockOptional = ownStockRepository.findByAccountIdAndPdno(ownStockDto.getAccount(), ownStockDto.getPdno());
+
+            if (stockOptional.isPresent()) {
+                OwnStockModel stock = stockOptional.get();
+                long buyingAmount = stock.getAvgPrvs() * stock.getPdQty();
+                long evaluatedAmount = ownStockDto.getAvgPrvs() * stock.getPdQty();
+                long profitLoss = buyingAmount - evaluatedAmount;
+                double profitRatio = profitLoss == 0 ?
+                        0 : Double.parseDouble(df.format(((double) profitLoss / buyingAmount) * 100));
+                list.add(OwnStockDto.builder()
+                        .profitRatio(profitRatio)
+                        .profitLoss(profitLoss)
+                        .avgPrvs(stock.getAvgPrvs())
+                        .evaluatedAmount(evaluatedAmount)
+                        .buyingAmount(buyingAmount)
+                        .build());
+            } else {
+                // Optional이 비어 있을 때의 처리를 여기서 할 수 있습니다.
+                log.warn("No stock found for account: {} and pdno: {}", ownStockDto.getAccount(), ownStockDto.getPdno());
+                // 필요시 continue, exception throw 등으로 처리할 수 있습니다.
+            }
+        }
+        return list;
+    }
+    private OwnStockDto getTotalProfit(List<OwnStockDto> ownStockDtoList) {
+        List<OwnStockDto> list = getProfit(ownStockDtoList);
+        DecimalFormat df = new DecimalFormat("#.00");
+        long totalBuyingAmount =0;
+        long totalEvaluatedAmount =0;
+        long totalProfitLoss =0;
+        double totalProfitRatio =0;
+        for (OwnStockDto ownStockDto : list) {
+            totalProfitLoss += ownStockDto.getProfitLoss();
+            totalEvaluatedAmount += ownStockDto.getEvaluatedAmount();
+            totalBuyingAmount += ownStockDto.getBuyingAmount();
+        }
+        totalProfitRatio = totalProfitLoss == 0 ?
+                0 : Double.parseDouble(df.format(((double) totalProfitLoss / totalBuyingAmount) * 100));
+        return OwnStockDto.builder().buyingAmount(totalBuyingAmount)
+                .evaluatedAmount(totalEvaluatedAmount)
+                .profitLoss(totalProfitLoss)
+                .profitRatio(totalProfitRatio).build();
+    }
+    public long getbalance(long id) {
+        return repository.findById(id).get().getBalance();
+    }
+
+    @Override
     public List<AccountDto> findAll() {
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
     public Optional<AccountDto> findById(Long id) {
-
         return Optional.ofNullable(
                 entityToDto(Objects.requireNonNull(repository.findById(id).orElse(null))));
     }

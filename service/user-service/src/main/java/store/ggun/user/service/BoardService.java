@@ -4,6 +4,8 @@ import store.ggun.user.domain.BoardDto;
 import store.ggun.user.domain.BoardModel;
 import store.ggun.user.domain.Messenger;
 
+import java.util.List;
+
 public interface BoardService {
     Messenger save(BoardDto board);
 
@@ -28,4 +30,6 @@ public interface BoardService {
                 .description(model.getDescription())
                 .build();
     }
+
+    List<BoardDto> findAll();
 }

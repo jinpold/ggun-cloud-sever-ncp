@@ -2,6 +2,7 @@ package store.ggun.account.service;
 
 import store.ggun.account.domain.dto.AccountDto;
 import store.ggun.account.domain.dto.Messenger;
+import store.ggun.account.domain.dto.OwnStockDto;
 import store.ggun.account.domain.model.AccountModel;
 
 import java.util.List;
@@ -44,5 +45,10 @@ public interface AccountService extends CommandService<AccountDto>, QueryService
 
     List<AccountDto> getAIAcno();
 
+    boolean checkAiAc(Long id, String acType);
+
     Messenger modifyByAccount(AccountDto accountDto);
+
+    Messenger getTotalBalanceByUser(List<OwnStockDto> accountDto);
+
 }

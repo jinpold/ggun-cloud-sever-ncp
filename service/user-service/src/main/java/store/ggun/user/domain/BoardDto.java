@@ -1,5 +1,6 @@
 package store.ggun.user.domain;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +12,17 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Data
 @Builder
-@AllArgsConstructor
 public class BoardDto {
-    private long id;
+    private Long id;
     private String title;
     private String content;
     private String description;
 
+    @QueryProjection
+    public BoardDto(Long id, String title, String content, String description) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.description = description;
+    }
 }

@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import store.ggun.account.domain.model.AccHistoryModel;
 
+import java.util.List;
+
 @Repository
 public interface AccHistoryRepository extends JpaRepository<AccHistoryModel,Long> {
 
 
 //    List<AccHistoryModel> findByAccountId(Long id);
-    Page<AccHistoryModel> findByAccountId(Long id, Pageable pageable);
+    List<AccHistoryModel> findByAccountId(Long id);
 }

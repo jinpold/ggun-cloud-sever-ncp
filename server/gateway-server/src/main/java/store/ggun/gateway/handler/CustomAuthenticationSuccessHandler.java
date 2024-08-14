@@ -3,7 +3,6 @@ package store.ggun.gateway.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,10 +18,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import store.ggun.gateway.domain.dto.MessengerDto;
 import store.ggun.gateway.domain.model.PrincipalUserDetails;
-import store.ggun.gateway.domain.model.UserModel;
 import store.ggun.gateway.service.provider.JwtTokenProvider;
 import java.net.URI;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Slf4j
@@ -39,57 +38,73 @@ public class CustomAuthenticationSuccessHandler implements ServerAuthenticationS
         Map<String, Object> attributes;
         String email;
         if(principal.getAttribute("email")!=null) {
-            attributes = principal.getAttribute("email");
+            attributes = principal.getAttributes();
             email = (String)attributes.get("email");
-        } else if (principal.getAttribute("User Attributes")!=null){
-            Map<String,Long> kakaoAtribbutes = principal.getAttribute("id");
-            email = kakaoAtribbutes.get("id").toString();
-        } else {
+        } else if (principal.getAttribute("response")!=null){
             attributes = principal.getAttribute("response");
             email = (String) attributes.get("email");
+        } else {
+            Map<String, Object> kakaoAtribbutes = principal.getAttributes();
+            email = kakaoAtribbutes.get("id").toString();
         }
         return webClient.post()
                 .uri("lb://user-service/auth/oauth")
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(email)
                 .retrieve()
-                .bodyToMono(UserModel.class)
-                .flatMap(userModel -> {
-                    PrincipalUserDetails principalUserDetails = new PrincipalUserDetails(userModel);
-                    return Mono.just(principalUserDetails);
-                })
+                .bodyToMono(PrincipalUserDetails.class)
+                .defaultIfEmpty(new PrincipalUserDetails(null))
                 .flatMap(response -> {
                     ServerHttpResponse serverResponse = webFilterExchange.getExchange().getResponse();
-                    URI redirectUri = URI.create("http://localhost:3000/join");
-                    if (response != null) {
-                        String accessToken = String.valueOf(jwtTokenProvider.generateToken(response, false));
-                        String refreshToken = String.valueOf(jwtTokenProvider.generateToken(response, true));
-                        ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", accessToken)
-                                .path("/")
-                                .maxAge(jwtTokenProvider.getAccessTokenExpired())
-                                .httpOnly(true)
-                                .build();
-                        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
-                                .path("/")
-                                .maxAge(jwtTokenProvider.getRefreshTokenExpired())
-                                .httpOnly(true)
-                                .build();
-                        redirectUri = URI.create("http://localhost:3000");
-                        serverResponse.addCookie(accessTokenCookie);
-                        serverResponse.addCookie(refreshTokenCookie);
-                    }
                     serverResponse.setStatusCode(HttpStatus.SEE_OTHER);
-                    serverResponse.getHeaders().setLocation(redirectUri);
-                    return serverResponse.setComplete();
+                    serverResponse.getHeaders().setLocation(URI.create("http://localhost:3000"));
+                    if (response.getUsername() == null) {
+                        MessengerDto messageDTO = MessengerDto.builder().message(email).build();
+                        serverResponse.setStatusCode(HttpStatus.OK);
+                        serverResponse.setStatusCode(HttpStatus.SEE_OTHER);
+                        serverResponse.getHeaders().setLocation(URI.create("http://localhost:3000/join"));
+                        return serverResponse.writeWith(Mono.just(serverResponse.bufferFactory().wrap(writeValueAsBytes(messageDTO))));
+                    }
+                    return jwtTokenProvider.generateToken(response, false)
+                            .flatMap(accessToken -> {
+                                serverResponse.getCookies().add("accessToken", ResponseCookie.from("accessToken", accessToken)
+                                        .path("/")
+                                        .maxAge(jwtTokenProvider.getAccessTokenExpired())
+                                        .httpOnly(true)
+                                                .secure(true)
+                                                .domain(".ggun.store")
+                                        .build());
+                                return jwtTokenProvider.generateToken(response, true);
+                            })
+                            .flatMap(refreshToken -> {
+                                serverResponse.getCookies().add("refreshToken", ResponseCookie.from("refreshToken", refreshToken)
+                                        .path("/")
+                                        .maxAge(jwtTokenProvider.getRefreshTokenExpired())
+                                        .httpOnly(true)
+                                                .secure(true)
+                                                .domain(".ggun.store")
+                                        .build());
+
+                                MessengerDto messageDTO = MessengerDto.builder().message("로그인 성공").build();
+                                return Mono.just(serverResponse.bufferFactory().wrap(writeValueAsBytes(messageDTO)));
+                            })
+                            .flatMap(buffer -> {
+                                return serverResponse.writeWith(Mono.just(buffer))
+                                        .then(Mono.defer(() -> {
+                                            return serverResponse.setComplete();
+                                        }));
+                            });
                 });
     }
+
+
 
 
     private byte[] writeValueAsBytes(MessengerDto messengerDto) {
         try {
             return objectMapper.writeValueAsBytes(messengerDto);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error serializing response", e);
         }
     }
 }

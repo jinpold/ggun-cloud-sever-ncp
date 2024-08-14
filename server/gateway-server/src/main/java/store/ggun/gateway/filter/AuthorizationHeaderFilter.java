@@ -8,13 +8,17 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import store.ggun.gateway.domain.vo.ExceptionStatus;
 import store.ggun.gateway.domain.vo.Role;
+import store.ggun.gateway.exception.GatewayException;
 import store.ggun.gateway.service.provider.JwtTokenProvider;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -30,35 +34,37 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     @Data
     public static class Config {
-        private String headerName;
-        private String headerValue;
         private List<Role> roles;
     }
 
     @Override
     public GatewayFilter apply(Config config) {
-        return ((exchange, chain) -> {
-            if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
-                return onError(exchange, HttpStatus.UNAUTHORIZED, "No Authorization Header");
+        return ((exchange, chain) ->
+                Mono.just(exchange)
+                        .filter(i -> exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
+                        .flatMap(i -> Mono.just(Objects.requireNonNull(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION))))
+                        .flatMap(i -> Mono.just(i.get(0)))
+                        .switchIfEmpty(Mono.error(new GatewayException(ExceptionStatus.UNAUTHORIZED,"No Authorization Header")))
+                        .filterWhen(i -> Mono.just(i.startsWith("Bearer ")))
+                        .flatMap(i -> Mono.just(jwtTokenProvider.removeBearer(i)))
+                        .filterWhen(i -> Mono.just(jwtTokenProvider.isTokenValid(i, false)))
+                        .switchIfEmpty(Mono.error(new GatewayException(ExceptionStatus.UNAUTHORIZED,"Invalid Token")))
+                        .flatMap(i -> {
+                            List<Role> roles = jwtTokenProvider.extractRoles(i).stream().map(Role::valueOf).toList();
+                            if (roles.stream().noneMatch(role -> config.getRoles().contains(role))) {
+                                return Mono.error(new GatewayException(ExceptionStatus.NO_PERMISSION, "No Permission"));
+                            }
+                            String userId = jwtTokenProvider.extractId(i);
+                            ServerHttpRequest request = exchange.getRequest().mutate()
+                                    .header("id", userId)  // ID를 헤더에 추가
+                                    .build();
 
-            @SuppressWarnings("null")
-            String token = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-            if(token == null)
-                return onError(exchange, HttpStatus.UNAUTHORIZED, "No Token or Invalid Token");
-
-            String jwt = jwtTokenProvider.removeBearer(token);
-            if(!jwtTokenProvider.isTokenValid(jwt, false))
-                return onError(exchange, HttpStatus.UNAUTHORIZED, "Invalid Token");
-            Role roles = Role.valueOf(jwtTokenProvider.extractRoles(jwt).get(0));
-
-            for(var i : config.getRoles()){
-                if(roles.equals(i)){
-                    return chain.filter(exchange);
-                }
-            }
-
-            return onError(exchange, HttpStatus.UNAUTHORIZED, "No Permission");
-        });
+                            log.info("g확인 : {} ", request.getHeaders().get("id"));
+                            return chain.filter(exchange.mutate().request(request).build());
+                        })
+                        .onErrorResume(GatewayException.class, e -> onError(exchange, HttpStatusCode.valueOf(e.getStatus().getStatus().value()), e.getMessage()))
+                        .log()
+        );
     }
 
     private Mono<Void> onError(ServerWebExchange exchange, HttpStatusCode httpStatusCode, String message){

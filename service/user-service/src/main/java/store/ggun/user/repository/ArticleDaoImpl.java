@@ -5,9 +5,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import store.ggun.user.domain.ArticleDto;
-import store.ggun.user.domain.ArticleModel;
-import store.ggun.user.domain.QArticleModel;
+import store.ggun.user.domain.*;
 
 import java.util.List;
 
@@ -15,30 +13,67 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleDaoImpl implements ArticleDao{
     private final JPAQueryFactory queryFactory;
+    private final QBoardModel qBoard = QBoardModel.boardModel;
     private final QArticleModel qArticle = QArticleModel.articleModel;
+    private final QUserModel qUser = QUserModel.userModel;
 
-    public List<ArticleDto> findByBoardIdDao(String boardId) {
-        return queryFactory
-                .select(Projections.constructor(ArticleDto.class,
+    public List<ArticleDto> findByBoardIdDao(Long boardId) {
+        return queryFactory.select(
+                        new QArticleDto(
+                                qArticle.id,
+                                qArticle.title,
+                                qArticle.content,
+                                qArticle.writerId.username,
+                                qArticle.boardId.id,
+                                qArticle.answer))
+                .from(qArticle)
+                .join(qBoard).on(qArticle.boardId.id.eq(qBoard.id))
+                .join(qUser).on(qArticle.writerId.id.eq(qUser.id))
+                .where(qArticle.boardId.id.eq(boardId))
+                .fetch();
+        }
+
+    @Override
+    public ArticleDto2 findByArticleId(Long model) {
+        return queryFactory.select(
+                new QArticleDto2(
                         qArticle.id,
                         qArticle.title,
                         qArticle.content,
-                        qArticle.writerId.username,
-                        qArticle.boardId,
+                        qArticle.writerId.id,
+                        qArticle.boardId.id,
                         qArticle.answer))
                 .from(qArticle)
-                .where(qArticle.boardId.eq(boardId))
-                .fetch();
+                .join(qBoard).on(qArticle.boardId.id.eq(qBoard.id))
+                .join(qUser).on(qArticle.writerId.id.eq(qUser.id))
+                .where(qArticle.id.eq(model))
+                .fetchOne();
     }
 
     @Override
-    public ArticleModel modifyArticle(ArticleDto model, String id) {
-        JPAQuery<ArticleModel> query = queryFactory.selectFrom(qArticle);
-        query.where(qArticle.boardId.eq(model.getBoardId()));
-        List<ArticleModel> articles = query.fetch();
-        ArticleModel article = new ArticleModel();
-        article.setTitle(model.getTitle()!=null?articles.get(0).getTitle():null);
-        article.setTitle(model.getContent()!=null?articles.get(0).getContent():null);
-        return article;
+    public ArticleDto findByArticleIdR(Long id) {
+        return queryFactory.select(
+                        new QArticleDto(
+                                qArticle.id,
+                                qArticle.title,
+                                qArticle.content,
+                                qArticle.writerId.username,
+                                qArticle.boardId.id,
+                                qArticle.answer))
+                .from(qArticle)
+                .join(qBoard).on(qArticle.boardId.id.eq(qBoard.id))
+                .join(qUser).on(qArticle.writerId.id.eq(qUser.id))
+                .where(qArticle.id.eq(id))
+                .fetchOne();
+    }
+
+    @Override
+    public Long findByArticleIdQuery(Long id) {
+        return queryFactory
+                .select(qArticle.writerId.id)
+                .from(qArticle)
+                .join(qUser).on(qArticle.writerId.id.eq(qUser.id))
+                .where(qArticle.id.eq(id))
+                .fetchOne();
     }
 }

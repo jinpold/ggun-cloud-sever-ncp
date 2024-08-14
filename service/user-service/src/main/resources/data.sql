@@ -1,264 +1,103 @@
-# select * from users;
-# select * from boards;
-# select * from articles;
-# desc boards;
-#
-# insert into users (user_id, username, password, name, phone, job) values (1, 'Reuven', 1, 'Hammand', '642-988-9762', 'Staff Accountant III');
-# insert into users (user_id, username, password, name, phone, job) values (2, 'Mabelle', 2, 'Quesne', '895-497-2107', 'Web Designer I');
-# insert into users (user_id, username, password, name, phone, job) values (3, 'Sosanna', 3, 'Chawkley', '193-426-1012', 'Structural Engineer');
-# insert into users set user_id=5, username='Felita', password='5', name='Locock', phone='958-456-6583', job='Legal Assistant';
-# update users set user_id=5, username='Felita', password='5', name='Locock', phone='958-456-6583', job='Legal Assistant' where user_id=5;
-# update users set user_id=6, username='Bale', password='6', name='Manclark', phone='911-354-7903', job='Senior Financial Analyst' where user_id=6;
+-- select * from users;
+--
 
-# insert into users (user_id, username, password, name, phone, job) values (4, 'Gal', 4, 'Fozard', '708-148-2071', 'Help Desk Operator');
-# insert into users (user_id, username, password, name, phone, job) values (5, 'Felita', 5, 'Locock', '958-456-6583', 'Legal Assistant');
-# insert into users (user_id, username, password, name, phone, job) values (6, 'Bale', 6, 'Manclark', '911-354-7903', 'Senior Financial Analyst');
-# insert into users (user_id, username, password, name, phone, job) values (7, 'Jarret', 7, 'Stollberger', '868-875-7213', 'Research Assistant III');
-# insert into users (user_id, username, password, name, phone, job) values (8, 'Andrey', 8, 'Mosby', '895-234-2516', 'Computer Systems Analyst I');
-# insert into users (user_id, username, password, name, phone, job) values (9, 'Clem', 9, 'Gemmill', '235-227-2969', 'Budget/Accounting Analyst IV');
-# insert into users (user_id, username, password, name, phone, job) values (10, 'Marilyn', 10, 'Fullick', '566-281-8271', 'Sales Associate');
-# insert into users (user_id, username, password, name, phone, job) values (11, 'Beverly', 11, 'Sommerville', '484-515-6254', 'Administrative Assistant II');
-# insert into users (user_id, username, password, name, phone, job) values (12, 'Tybie', 12, 'Hinstruser_idge', '659-602-7866', 'Sales Representative');
-# insert into users (user_id, username, password, name, phone, job) values (13, 'Olympia', 13, 'Germon', '303-786-6311', 'Safety Technician I');
-# insert into users (user_id, username, password, name, phone, job) values (14, 'Derward', 14, 'Ruser_idsdell', '811-496-4592', 'Design Engineer');
-# insert into users (user_id, username, password, name, phone, job) values (15, 'Othilia', 15, 'Walkden', '658-904-9433', 'Staff Accountant I');
-# insert into users (user_id, username, password, name, phone, job) values (16, 'Roger', 16, 'Roan', '914-472-9162', 'VP Product Management');
-# insert into users (user_id, username, password, name, phone, job) values (17, 'Catina', 17, 'Frearson', '119-637-6361', 'Information Systems Manager');
-# insert into users (user_id, username, password, name, phone, job) values (18, 'Yancey', 18, 'Limon', '461-945-9994', 'Executive Secretary');
-# insert into users (user_id, username, password, name, phone, job) values (19, 'Wakefield', 19, 'Bernier', '412-207-3902', 'Accountant IV');
-# insert into users (user_id, username, password, name, phone, job) values (20, 'Erek', 20, 'Witchalls', '419-420-6565', 'Budget/Accounting Analyst I');
-#
-# insert into boards (board_id, title, description) values (1, 'REVIEW','리뷰');
-# insert into boards (board_id, title, description) values (2, 'QNA','큐엔에이');
-#
-#
-# insert into articles (article_id, title, content, user_id, board_id) values (1, 'Agent Red', 'java.com', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (2, 'Exit to Hell', 'umich.edu', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (3, 'Vengeance Valley', 'boston.com', 4, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (4, 'Blast', 'auda.org.au', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (5, 'The Chumscrubber', 'walmart.com', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (6, 'Twogether', 'webs.com', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (7, 'Stockholm East (Stockholm Östra)', 'nps.gov', 8, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (8, 'Spinning Plates', '4shared.com', 9, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (9, 'Come On, Rangers', 'bigcartel.com', 10, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (10, 'Red Obession', 'arstechnica.com', 1, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (11, 'Management', 'google.it', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (12, 'The Brave Little Toaster Goes to Mars', 'europa.eu', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (13, 'From Beginning to End (Do Começo ao Fim)', 'baidu.com', 4, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (14, 'Return of the Killer Tomatoes!', 'nytimes.com', 5, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (15, 'Your Highness', 'drupal.org', 6, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (16, 'Italian Job, The', 'dell.com', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (17, 'Match Point', 'army.mil', 8, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (18, 'Red Flag', 'oakley.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (19, 'No Way Out', 'mayoclinic.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (20, 'Just Ask My Children', 'twitpic.com', 1, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (21, 'How to Rob a Bank', 'wp.com', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (22, 'Fat City', 'europa.eu', 3, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (23, 'Return of Dracula, The', 'howstuffworks.com', 4, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (24, '47 Ronin', 'arstechnica.com', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (25, 'Light Bulb Conspiracy, The', 'opensource.org', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (26, 'Dance of Outlaws (Häätanssi)', 'unc.edu', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (27, 'Big City, The (Mahanagar)', 'bravesites.com', 8, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (28, 'Sam''s Song', 'mashable.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (29, 'Max Keeble''s Big Move', 'youtube.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (30, 'Last Voyage, The', 'qq.com', 1, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (31, 'Dominion Tank Police (Dominion)', 'chicagotribune.com', 2, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (32, 'Casino', 'vkontakte.ru', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (33, 'Ninja Assassin', 'google.es', 4, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (34, 'Day of the Dead', 'amazon.co.jp', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (35, 'Luck, Trust & Ketchup: Robert Altman in Carver Country', '1688.com', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (36, 'Year of Living Dangerously, The', 'google.ca', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (37, 'Piripäiväkirja', 'admin.ch', 8, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (38, 'Rachel Getting Married', 'forbes.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (39, '2016: Obama''s America', 'uol.com.br', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (40, 'Jeremiah Johnson', 'skype.com', 1, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (41, 'Hometown Legend', 'smh.com.au', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (42, 'Group Sex', 'springer.com', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (43, 'Wings', 'quantcast.com', 4, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (44, 'Sound of Noise', 'mayoclinic.com', 5, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (45, 'Thrilla in Manila', 'friendfeed.com', 6, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (46, 'Guernica', 'yellowbook.com', 7, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (47, 'Karlsson on the Roof', 'webmd.com', 8, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (48, 'Knot, The', 'ning.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (49, 'Uncounted: The New Math of American Elections', 'bbc.co.uk', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (50, 'Fear', 'sina.com.cn', 1, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (51, 'Anarchist Cookbook, The', 'businesswire.com', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (52, 'Trumbo', 'ow.ly', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (53, 'Mutual Appreciation', 'prweb.com', 4, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (54, 'Almost 18', 'businessinsider.com', 5, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (55, 'Mile... Mile & a Half', 'economist.com', 6, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (56, 'Last House on the Left, The', 'nifty.com', 7, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (57, 'Business as Usual', 'adobe.com', 8, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (58, 'Dear White People', 'tumblr.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (59, 'New York Lightboard Record', 'histats.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (60, 'Red Dragon', 'cornell.edu', 1, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (61, 'Corn on the Cop', 'uiuc.edu', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (62, 'Koch', 'about.me', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (63, 'Starship Troopers: Invasion', 'sitemeter.com', 4, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (64, 'Väreitä', 'go.com', 5, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (65, 'Call Me Madam', 'nih.gov', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (66, 'Best Man Holiday, The', 'deliciousdays.com', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (67, 'Ring Finger, The (L''annulaire)', 'timesonline.co.uk', 8, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (68, 'Reds', 'weather.com', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (69, 'Country Strong', 'linkedin.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (70, 'Flight Command', 'rediff.com', 1, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (71, 'Steamboat Bill, Jr.', 'virginia.edu', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (72, 'Tainted', 'ftc.gov', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (73, 'Blacksmith, The', 'meetup.com', 4, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (74, 'Guilty (Présumé coupable)', 'ow.ly', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (75, 'The Forgotten Woman', 'cocolog-nifty.com', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (76, 'Twister', 'hexun.com', 7, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (77, 'Black Christmas', 'mapy.cz', 8, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (78, 'Fracture', 'symantec.com', 9, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (79, 'Moon', 'chron.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (80, 'Compliance', 'harvard.edu', 1, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (81, 'The Court-Martial of Jackie Robinson', 'ow.ly', 2, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (82, 'White Cliffs of Dover, The', 'weather.com', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (83, 'Safe Passage', 'arstechnica.com', 4, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (84, 'Lonely Guy, The', 'desdev.cn', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (85, 'Mass Appeal', 'sun.com', 6, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (86, 'Criminal Code, The', 'omniture.com', 7, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (87, 'Embodiment of Evil (Encarnação do Demônio)', 'fotki.com', 8, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (88, 'Fear of a Black Hat', 'phpbb.com', 9, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (89, 'Arachnophobia', 'google.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (90, 'Red Badge of Courage, The', 'bluehost.com', 1, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (91, 'Chill Factor', 'census.gov', 2, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (92, 'Three Times (Zui hao de shi guang)', 'vinaora.com', 3, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (93, 'Now You Know', 'washingtonpost.com', 4, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (94, 'Silver Chalice, The', 'com.com', 5, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (95, 'Tokyo Zombie (Tôkyô zonbi)', 'rambler.ru', 6, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (96, '35 Shots of Rum (35 rhums)', 'flavors.me', 7, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (97, 'Nicholas on Holiday', 'last.fm', 8, 2);
-# insert into articles (article_id, title, content, user_id, board_id) values (98, 'Big Hero 6', 'npr.org', 9, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (99, '2 + 2 (Dos más dos)', 'elpais.com', 10, 1);
-# insert into articles (article_id, title, content, user_id, board_id) values (100, 'Civil Brand', 'goo.gl', 1, 2);
-#
-#
-#
-#
-#
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (1, 'Reuven', 1, 'Hammand', '642-988-9762', 'Staff Accountant III','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (2, 'Mabelle', 2, 'Quesne', '895-497-2107', 'Web Designer I','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (3, 'Sosanna', 3, 'Chawkley', '193-426-1012', 'Structural Engineer','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (4, 'Gal', 4, 'Fozard', '708-148-2071', 'Help Desk Operator','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (5, 'Felita', 5, 'Locock', '958-456-6583', 'Legal Assistant','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (6, 'Bale', 6, 'Manclark', '911-354-7903', 'Senior Financial Analyst','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (7, 'Jarret', 7, 'Stollberger', '868-875-7213', 'Research Assistant III','2024-04-03 12:00:00', '2024-04-03 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (8, 'Andrey', 8, 'Mosby', '895-234-2516', 'Computer Systems Analyst I','2024-04-02 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (9, 'Clem', 9, 'Gemmill', '235-227-2969', 'Budget/Accounting Analyst IV','2024-04-02 12:00:00', '2024-04-02 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (10, 'Marilyn', 10, 'Fullick', '566-281-8271', 'Sales Associate','2024-04-01 12:30:00','2024-04-01 12:30:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (11, 'Beverly', 11, 'Sommerville', '484-515-6254', 'Administrative Assistant II','2050-04-01 12:00:00','2050-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (12, 'Tybie', 12, 'Hinstridge', '659-602-7866', 'Sales Representative','2024-04-21 12:00:00','2024-04-21 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (13, 'Olympia', 13, 'Germon', '303-786-6311', 'Safety Technician I','2024-04-13 12:00:00','2024-04-13 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (14, 'Derward', 14, 'Ridsdell', '811-496-4592', 'Design Engineer','2024-04-20 12:00:00','2024-04-20 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (15, 'Othilia', 15, 'Walkden', '658-904-9433', 'Staff Accountant I','2024-12-01 12:00:00','2024-12-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (16, 'Roger', 16, 'Roan', '914-472-9162', 'VP Product Management','2024-02-01 12:00:00','2024-02-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (17, 'Catina', 17, 'Frearson', '119-637-6361', 'Information Systems Manager','2024-04-01 12:00:00', '2024-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (18, 'Yancey', 18, 'Limon', '461-945-9994', 'Executive Secretary','2010-04-01 12:00:00','2010-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (19, 'Wakefield', 19, 'Bernier', '412-207-3902', 'Accountant IV','2002-04-01 12:00:00','2002-04-01 12:00:00');
-# # insert into users (user_id, username, password, name, phone, job, mod_date, reg_date) values (20, 'Erek', 20, 'Witchalls', '419-420-6565', 'Budget/Accounting Analyst I','1995-02-01 12:00:00','1995-02-01 12:00:00');
-# #
-# # insert into boards (board_id, title, description,mod_date, reg_date) values (1, 'REVIEW','리뷰','2024-03-10 12:34:41', '2024-02-13 13:15:06');
-# # insert into boards (board_id, title, description,mod_date, reg_date) values (2, 'QNA','큐엔에이', '2023-08-29 22:58:08', '2024-03-11 10:26:45');
-# #
-# #
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (1, 'Man in the Gray Flannel Suit, The', 'Apt 530', 6, 1, '2023-05-05 00:10:49', '2024-02-28 04:32:04');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (2, 'Advantageous', 'Apt 1031', 17, 2, '2023-04-14 12:07:46', '2023-09-30 08:20:52');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (3, 'Prince of Central Park, The', 'Apt 955', 9, 2, '2024-01-16 19:23:29', '2024-01-29 03:11:26');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (4, 'Secret Ceremony', 'Apt 1323', 6, 2, '2024-01-06 16:32:58', '2023-09-19 15:03:49');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (5, 'Everything About Mustafa (Mustafa hakkinda hersey)', '5th Floor', 1, 1, '2023-12-02 05:19:43', '2024-01-06 04:44:20');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (6, 'Wedding Weekend, The (Sing Now or Forever Hold Your Peace) (Shut Up and Sing)', 'Room 446', 15, 1, '2023-04-13 23:03:48', '2024-03-10 03:25:24');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (7, 'Near East, The (El Proximo Oriente)', 'PO Box 78099', 6, 2, '2023-08-22 22:35:11', '2023-07-06 06:42:17');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (8, 'Days and Hours (Kod amidze Idriza)', 'Suite 76', 4, 1, '2023-07-29 19:26:59', '2024-04-05 22:11:04');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (9, 'The Batman vs. Dracula', 'Apt 1052', 16, 1, '2023-06-21 16:58:36', '2023-10-24 02:38:07');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (10, '1939: Hollywood''s Greatest Year', 'Apt 1256', 18, 2, '2023-08-10 12:39:39', '2023-06-22 12:28:10');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (11, 'Finding Normal', 'Apt 1632', 14, 2, '2023-12-27 21:43:35', '2023-07-16 22:14:00');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (12, 'Homeward Bound: The Incredible Journey', 'Suite 67', 12, 2, '2023-10-22 07:19:26', '2023-07-31 06:54:25');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (13, 'Possession', 'Suite 96', 2, 2, '2023-07-28 16:21:23', '2024-02-28 09:10:53');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (14, 'Tuya''s Marriage (Tuya de hun shi)', 'PO Box 3498', 2, 1, '2024-03-10 12:34:41', '2024-02-13 13:15:06');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (15, 'English Patient, The', 'PO Box 24618', 17, 1, '2023-10-24 07:23:49', '2023-09-06 12:29:18');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (16, 'King - Jari Litmanen, The (Kuningas Litmanen)', '7th Floor', 14, 1, '2024-02-10 10:53:34', '2023-04-28 19:21:10');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (17, 'Dark Crystal, The', 'Room 1129', 19, 2, '2024-01-09 17:52:26', '2024-01-03 06:33:31');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (18, 'Most Hated Family in America, The', 'PO Box 1120', 7, 2, '2023-07-22 14:50:33', '2024-03-18 03:17:18');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (19, 'Devil''s Rain, The', 'Room 1383', 8, 2, '2023-12-01 13:20:30', '2023-10-28 16:37:09');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (20, 'Funny Girl', '2nd Floor', 11, 1, '2023-04-29 07:02:51', '2023-06-22 01:45:42');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (21, 'Naked Blood: Megyaku (Nekeddo burâddo: Megyaku)', 'Room 1033', 16, 2, '2023-06-02 14:43:32', '2023-10-23 18:24:40');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (22, 'William Kunstler: Disturbing the Universe', 'Apt 1627', 8, 2, '2023-08-29 22:58:08', '2024-03-11 10:26:45');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (23, 'Kiss, The', 'PO Box 30279', 19, 2, '2024-03-11 00:53:52', '2023-12-08 13:55:58');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (24, 'Stalingrad', 'Room 1397', 15, 2, '2024-01-17 22:53:07', '2023-05-14 16:45:59');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (25, 'Afterwards', 'PO Box 38397', 13, 2, '2023-12-28 07:28:56', '2023-12-26 21:35:59');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (26, 'Disappeared, The', '5th Floor', 16, 1, '2023-06-29 06:49:05', '2024-04-02 19:53:42');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (27, 'Trading Places', 'PO Box 17466', 9, 2, '2023-12-22 18:46:27', '2023-07-21 05:30:17');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (28, 'Mr. Jones', '2nd Floor', 12, 2, '2023-11-10 15:22:42', '2023-06-06 14:24:05');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (29, 'Mister Buddwing', 'Suite 29', 8, 1, '2023-05-16 19:13:17', '2023-04-13 16:15:22');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (30, 'Classe Tous Risques (Big Risk, The)', 'Room 406', 11, 2, '2023-07-17 06:55:36', '2023-07-12 21:56:55');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (31, 'Bakhita', 'Suite 77', 7, 2, '2023-09-17 01:43:42', '2024-03-12 11:57:48');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (32, 'Vivien Leigh: Scarlett and Beyond', 'Apt 1822', 3, 2, '2023-04-19 18:02:02', '2023-04-16 17:59:00');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (33, 'Nowhere to Hide (Injeong sajeong bol geot eobtda)', 'Suite 80', 1, 2, '2023-05-16 15:50:02', '2023-12-06 12:59:44');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (34, 'Swedish Love Story, A (Kärlekshistoria, En)', 'PO Box 10147', 9, 2, '2024-03-10 20:37:46', '2024-01-05 11:22:55');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (35, 'Streets of Blood', 'Apt 1137', 11, 2, '2024-01-31 10:31:58', '2023-08-24 06:03:54');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (36, 'Jacqueline Susann''s Once Is Not Enough', 'Apt 1660', 16, 1, '2023-04-08 18:34:19', '2023-12-31 06:36:58');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (37, 'Smoke on the Potato Fields (Dým bramborové nate)', 'PO Box 35223', 4, 2, '2023-06-19 23:44:50', '2023-09-25 18:22:19');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (38, 'Assault on Precinct 13', 'Room 1171', 20, 2, '2023-08-10 14:42:53', '2023-10-28 13:09:30');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (39, 'Valley of the Bees (Údolí vcel)', 'PO Box 56646', 5, 1, '2023-09-05 05:35:25', '2023-05-15 04:06:55');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (40, 'Blood Work', '1st Floor', 20, 1, '2024-01-28 19:22:05', '2024-03-16 21:14:17');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (41, 'Wrong', 'PO Box 30429', 5, 2, '2023-09-24 21:20:23', '2023-10-25 09:00:42');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (42, 'Bush''s Brain', 'PO Box 78875', 15, 2, '2023-10-16 20:47:16', '2023-04-21 22:56:41');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (43, 'Human Comedy, The', '18th Floor', 15, 2, '2023-10-26 07:28:49', '2023-09-14 18:19:31');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (44, 'Mon Oncle Antoine', 'PO Box 62534', 4, 2, '2023-09-05 06:27:15', '2023-09-07 13:11:19');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (45, 'Jeepers Creepers 2', 'Apt 525', 2, 2, '2023-12-19 17:33:02', '2023-09-08 08:56:05');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (46, 'Her Alibi', 'Suite 27', 12, 1, '2023-10-08 23:58:44', '2023-06-05 04:39:48');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (47, 'B.T.K.', '7th Floor', 17, 1, '2024-02-18 14:54:46', '2024-02-20 14:08:11');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (48, 'Asylum', 'PO Box 2085', 12, 2, '2023-11-06 00:30:05', '2023-06-18 18:57:21');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (49, 'Lila Says (Lila dit ça)', '1st Floor', 14, 1, '2024-01-19 10:19:13', '2023-04-11 20:30:45');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (50, 'Deal, The', 'Room 926', 4, 2, '2023-10-20 00:18:15', '2023-08-13 12:23:33');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (51, 'Tout ce qui brille', 'Suite 64', 2, 2, '2023-10-18 15:13:12', '2024-02-13 08:52:20');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (52, 'Invasion of the Body Snatchers', 'PO Box 37094', 11, 1, '2023-08-07 19:53:09', '2023-06-21 03:11:39');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (53, 'My Dear Enemy (Meotjin haru)', 'Room 808', 13, 1, '2023-08-24 15:09:33', '2023-08-07 03:16:32');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (54, 'Barbary Coast', 'Suite 98', 18, 2, '2024-02-05 16:16:08', '2024-01-15 12:49:15');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (55, 'The Last of the Finest', 'Room 144', 3, 1, '2023-08-16 17:00:33', '2024-02-06 12:17:04');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (56, 'Cass', 'Room 711', 9, 2, '2023-04-22 06:17:37', '2023-06-04 05:50:42');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (57, 'Sea Hawk, The', 'Suite 51', 19, 1, '2023-07-13 09:35:28', '2023-04-27 12:40:39');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (58, 'National Lampoon''s Van Wilder', '18th Floor', 1, 2, '2023-12-21 22:14:42', '2024-02-07 03:51:55');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (59, 'Shanghai', 'Room 1232', 4, 2, '2023-09-10 12:13:19', '2023-12-19 05:06:34');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (60, 'Connie and Carla', 'PO Box 96118', 12, 1, '2023-11-27 00:01:44', '2023-12-31 07:11:22');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (61, 'Buffalo ''66 (a.k.a. Buffalo 66)', 'Room 806', 15, 1, '2024-01-22 23:05:56', '2023-08-20 12:20:14');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (62, 'Taxi', '14th Floor', 3, 2, '2023-11-04 16:09:32', '2024-03-28 09:21:57');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (63, 'Remington and the Curse of the Zombadings', 'Apt 60', 8, 1, '2023-07-10 13:26:33', '2023-11-13 10:07:51');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (64, 'Hollywood Revue of 1929, The', '10th Floor', 11, 1, '2023-12-16 00:17:21', '2023-07-18 19:58:36');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (65, 'Dorian Gray', 'Room 1423', 15, 1, '2023-08-02 11:56:15', '2023-10-29 14:08:46');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (66, 'Brothers Lionheart, The (Bröderna Lejonhjärta)', 'Apt 918', 14, 1, '2023-06-14 09:31:54', '2023-10-16 08:46:07');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (67, 'Vampire Academy', 'Suite 22', 14, 1, '2024-03-16 07:13:43', '2023-10-14 10:31:38');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (68, 'Who Are the DeBolts? [And Where Did They Get 19 Kids?]', 'Apt 505', 19, 2, '2023-07-31 20:59:35', '2024-03-22 06:16:10');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (69, 'Loving Father, A (Aime ton père)', 'PO Box 8168', 15, 2, '2023-10-23 22:36:08', '2023-08-15 08:23:48');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (70, 'Eat Sleep Die (Äta sova dö)', 'Room 1117', 17, 2, '2023-11-10 17:52:53', '2023-04-29 05:26:06');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (71, 'Best Foot Forward', 'PO Box 2407', 3, 2, '2023-07-19 17:03:43', '2023-09-04 00:29:08');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (72, 'East Palace West Palace (Dong gong xi gong)', 'Suite 99', 14, 1, '2023-04-09 06:38:05', '2023-08-31 15:50:58');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (73, 'On Guard (Bossu, Le)', 'Apt 1619', 2, 2, '2023-06-24 22:32:29', '2023-10-20 06:33:00');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (74, 'Who Are the DeBolts? [And Where Did They Get 19 Kids?]', 'Room 274', 8, 1, '2023-05-07 19:34:07', '2023-07-25 07:03:29');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (75, 'Foster Brothers, The (Süt kardesler)', 'Suite 62', 3, 2, '2023-08-07 12:52:29', '2023-10-22 02:55:54');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (76, 'Taxing Woman, A (Marusa no onna)', 'PO Box 40195', 10, 1, '2023-05-17 00:43:06', '2023-10-20 15:42:23');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (77, 'Tonight You''re Mine', 'Suite 8', 16, 1, '2023-04-18 21:44:23', '2023-06-26 20:22:10');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (78, 'Hellraiser: Hellworld', 'PO Box 1297', 3, 2, '2024-03-26 16:36:27', '2024-01-12 09:27:51');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (79, 'Simon Killer ', 'Suite 96', 12, 2, '2023-12-27 03:43:28', '2023-07-03 16:49:49');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (80, 'Pleasure at Her Majesty''s', 'Apt 1129', 12, 2, '2023-06-27 11:54:45', '2023-05-06 03:16:01');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (81, 'Fantastic Fear of Everything, A', 'Room 926', 11, 1, '2023-12-18 21:21:59', '2023-11-22 16:02:55');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (82, 'Spun', 'Apt 1550', 20, 1, '2023-11-10 23:59:14', '2023-05-17 22:22:29');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (83, 'The Last Station', 'Suite 20', 15, 1, '2023-12-15 12:35:43', '2024-03-06 19:26:36');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (84, 'Lucky Luke: The Ballad of the Daltons', 'Room 1620', 7, 1, '2023-04-27 07:22:28', '2023-06-08 14:57:07');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (85, 'Monster X Strikes Back: Attack the G8 Summit, The (Girara no gyakushû: Tôya-ko Samitto kikiippatsu)', 'PO Box 25275', 8, 1, '2023-07-10 10:39:12', '2023-04-14 00:40:06');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (86, 'Shepherd of the Hills, The', 'PO Box 91734', 10, 2, '2023-11-19 10:35:36', '2023-06-11 15:54:53');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (87, 'Belle toujours', 'PO Box 4843', 12, 2, '2024-03-15 01:33:56', '2023-10-21 02:14:31');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (88, 'Into the Night', '12th Floor', 15, 1, '2023-09-22 11:07:18', '2023-10-07 13:12:09');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (89, 'Boiling Point (3-4 x jûgatsu)', 'Suite 42', 18, 2, '2023-04-27 20:13:30', '2024-01-30 09:34:30');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (90, 'Dance of the Dead', 'PO Box 73494', 6, 2, '2023-08-21 09:09:40', '2023-12-16 04:12:16');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (91, 'Pieces of April', 'Suite 68', 14, 1, '2023-11-30 23:50:27', '2023-07-24 03:26:31');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (92, 'Angels in the Outfield', 'Room 228', 6, 1, '2023-12-05 13:11:03', '2023-10-31 11:43:52');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (93, 'The Wild Bunch: An Album in Montage', 'Room 763', 17, 2, '2024-02-05 01:10:51', '2023-07-08 22:41:29');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (94, 'Read It and Weep', '20th Floor', 19, 2, '2023-04-21 18:45:26', '2023-08-25 03:35:45');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (95, 'Wartorn: 1861-2010', 'Suite 96', 1, 1, '2024-02-11 12:36:10', '2023-06-09 09:30:16');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (96, 'Submerged', 'Apt 816', 9, 1, '2024-01-25 10:19:45', '2023-08-28 16:30:46');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (97, 'Chelsea Girls', 'Suite 7', 19, 2, '2023-07-21 17:46:32', '2024-02-14 01:24:21');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (98, 'Sommer der Gaukler, Der', '2nd Floor', 2, 1, '2023-06-09 03:35:26', '2023-08-02 13:07:47');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (99, 'Tyler Perry''s Diary of a Mad Black Woman', '9th Floor', 1, 1, '2023-10-29 18:53:19', '2023-06-27 03:06:59');
-# # insert into articles (article_id, title, content, user_id, board_id, mod_date, reg_date) values (100, 'Babysitter Wanted', 'Apt 1493', 20, 1, '2023-06-23 10:30:50', '2023-04-28 07:56:14');
+insert into users(username,password,name,age,sex,email,ssnF,ssnS,address,phone,asset,color,investment_propensity,roles) values ('qwe','$2a$10$gWawLIiysLIU/y99pbVAteffUhKphTA.yAtwdsCASWMQADBo8bJaS','아일멘드라','25','남','qwe@naver.com','1111','1111','서울시','010',11111,'검정','NAVER','ROLE_USER'),
+                                                                                                                               ('qqq','$2a$10$Ip7ZhFXdoTij.S4UUezw.uJz8/tw39YdPWyjmT1yXvqzK7K8Nukwq','매트릭스인트캣','33','남','qqq@naver.com','123','123','서울시','011',11111,'빨강','NAVER','ROLE_USER'),
+                                                                                                                               ('aaa','$2a$10$gJ2exVSzm5XKnugGXYD8GOtT39FAowvtYdnA9gFMmMRmafQR.NCiG','토만시드','323','남','aaa@naver.com','332','332','서울시','010',11111,'파랑','NAVER','ROLE_USER'),
+                                                                                                                               ('zzz','$2a$10$UEKOTwqzN64rSmW/vT2CpuxXvZ9oIa.CFJy9Q0aX6KQ6rmwQe.MkW','드라이버','44','남','zzz@naver.com','444','444','서울시','010',11111,'검정','NAVER','ROLE_USER'),
+                                                                                                                               ('user01', '$2a$10$ETuqjiMOwPr.NvKMzEOjm.FSzQIAFsvqBYqa47zgg2Yrx8YVzKR06', '홍길동', 28, '남성', 'hong@example.com', 123456, 1234, '서울시 강남구 123-45', '010-1234-5678', 1000000, 'red', '보수적','ROLE_USER'),  -- password1
+                                                                                                                               ('user02', '$2a$10$mHoWfF3lktrQyHmBnjbANeQUM5jdpal8nLwGE0qQks6X4TqtaFEwO', '김영희', 34, '여성', 'kim@example.com', 234567, 2345, '부산시 해운대구 67-89', '010-2345-6789', 2000000, 'blue', '공격적','ROLE_USER'),  -- password2
+                                                                                                                               ('user03', '$2a$10$wyCbbiJzmoc7mJf0Zxc9A.jcio4LxHi94Uw0Ah3n.tudyc0qd7iHq', '이철수', 45, '남성', 'lee@example.com', 345678, 3456, '대구시 중구 10-11', '010-3456-7890', 1500000, 'green', '중립적','ROLE_USER'),  -- password3
+                                                                                                                               ('user04', '$2a$10$wICUq3gGwlCiD8rUobavSeQnfJFQ9sYHByrwImeJxW1vmE2aPGvQO', '박지민', 29, '여성', 'park@example.com', 456789, 4567, '인천시 남동구 12-34', '010-4567-8901', 2500000, 'yellow', '보수적','ROLE_USER'),  -- password4
+                                                                                                                               ('user05', '$2a$10$2dSGcc4aK3f/JM0gxw/hnufAYcPJPG6t0mFd.d/t3MUU.jJPsym1e', '최민수', 37, '남성', 'choi@example.com', 567890, 5678, '광주시 북구 56-78', '010-5678-9012', 1800000, 'purple', '공격적','ROLE_USER'),  -- password5
+                                                                                                                               ('user10', '$2a$10$0Lx0mEG2hFaxzSlt94.UyO9vNLp0ebcTiEJmkhSNLOIeNDU2XVfb2', '하진수', 33, '남성', 'ha@example.com', 123456, 3456, '충청북도 청주시 11-22', '010-0123-4567', 2100000, 'purple', '보수적','ROLE_USER');  -- password10
+insert into boards(boards.boards_id,boards.title) values (1,'자주하는 질문');
+insert into boards(boards.boards_id,boards.title) values (2,'QnA/1:1문의');
+insert into boards(boards.boards_id,boards.title) values (3,'공지사항');
+
+
+INSERT INTO articles (articles.title, articles.content, articles.users_id, articles.boards_id, articles.answer) VALUES
+                                                                                                                    ('회원 가입 방법', '회원 가입을 어떻게 하나요?', 1, 2, '회원 가입은 홈페이지 상단의 "가입하기" 버튼을 클릭하시면 됩니다.'),
+                                                                                                                    ('비밀번호 재설정', '비밀번호를 잊어버렸습니다. 어떻게 해야 하나요?', 2, 2, '로그인 페이지에서 "비밀번호 찾기"를 클릭하시면 이메일로 재설정 링크를 보내드립니다.'),
+                                                                                                                    ('주식 거래 수수료', '주식 거래 시 수수료는 얼마인가요?', 3, 2, '거래 수수료는 기본 0.1%이며, VIP 회원에게는 할인 혜택이 있습니다.'),
+                                                                                                                    ('프로필 수정 방법', '내 프로필을 어떻게 수정하나요?', 4, 2, '내 계정 메뉴에서 "프로필 수정"을 선택하시면 됩니다.'),
+                                                                                                                    ('시세 조회 방법', '실시간 주식 시세는 어떻게 조회하나요?', 5, 2, '홈페이지의 시세 조회 메뉴에서 원하는 종목을 검색하시면 됩니다.'),
+                                                                                                                    ('투자 정보 제공', '투자 정보를 어디서 확인할 수 있나요?', 6, 2, '투자 정보는 "투자 정보" 메뉴에서 확인하실 수 있습니다.'),
+                                                                                                                    ('상장 주식 정보', '상장 주식에 대한 정보를 알고 싶습니다.', 7, 2, '상장 주식 정보는 "상장 주식" 메뉴에서 확인 가능합니다.'),
+                                                                                                                    ('계좌 해지 방법', '계좌를 해지하고 싶은데 어떻게 하나요?', 8, 2, '고객센터에 문의하시면 계좌 해지 절차를 안내해 드립니다.'),
+                                                                                                                    ('거래 내역 조회', '거래 내역은 어떻게 조회하나요?', 9, 2, '내 계정 메뉴의 "거래 내역"에서 확인하실 수 있습니다.'),
+                                                                                                                    ('이벤트 참여 방법', '이벤트에 참여하려면 어떻게 해야 하나요?', 10, 2, '이벤트 페이지에서 참여 신청을 하시면 됩니다.'),
+                                                                                                                    ('SMS 알림 설정', '주식 거래 시 SMS 알림을 받을 수 있나요?', 1, 2, '설정 메뉴에서 SMS 알림을 활성화하시면 됩니다.'),
+                                                                                                                    ('고객센터 연락처', '고객센터에 어떻게 연락하나요?', 2, 2, '고객센터는 1234-5678로 전화 주시면 됩니다.'),
+                                                                                                                    ('투자 상담 예약', '투자 상담은 어떻게 예약하나요?', 3, 2, '홈페이지의 상담 예약 메뉴에서 가능한 날짜를 선택하시면 됩니다.'),
+                                                                                                                    ('투자 교육 프로그램', '투자 교육 프로그램은 어떻게 신청하나요?', 4, 2, '교육 프로그램 신청은 "교육" 메뉴에서 가능합니다.'),
+                                                                                                                    ('주식 관련 뉴스', '주식 관련 뉴스를 어디서 볼 수 있나요?', 5, 2, '뉴스 메뉴에서 최신 주식 뉴스를 확인하실 수 있습니다.'),
+                                                                                                                    ('계좌 인증 절차', '계좌 인증은 어떻게 하나요?', 6, 2, '계좌 인증은 "계좌 인증" 메뉴에서 안내에 따라 진행하시면 됩니다.'),
+                                                                                                                    ('안전한 거래 방법', '안전하게 거래하는 방법은 무엇인가요?', 7, 2, '안전한 거래를 위해 2단계 인증을 설정하시길 권장합니다.'),
+                                                                                                                    ('투자 리포트 요청', '투자 리포트는 어떻게 요청하나요?', 8, 2, '고객센터에 요청하시면 투자 리포트를 제공해 드립니다.'),
+                                                                                                                    ('펀드 투자 안내', '펀드에 투자하는 방법은 무엇인가요?', 9, 2, '펀드 투자 안내는 "펀드" 메뉴에서 확인하실 수 있습니다.'),
+                                                                                                                    ('주식 분석 도구', '주식 분석 도구는 어떤 것이 있나요?', 10, 2, '주식 분석 도구는 "분석 도구" 메뉴에서 사용할 수 있습니다.'),
+                                                                                                                    ('모바일 앱 사용법', '모바일 앱 사용법을 알고 싶습니다.', 1, 2, '앱 내 도움말 메뉴에서 사용법을 확인하실 수 있습니다.'),
+                                                                                                                    ('투자 전략 추천', '어떤 투자 전략을 추천하시나요?', 2, 2, '장기 투자와 분산 투자를 추천합니다.'),
+                                                                                                                    ('주식 시장 동향', '현재 주식 시장 동향은 어떤가요?', 3, 2, '현재 주식 시장은 상승세를 보이고 있습니다.'),
+                                                                                                                    ('세금 관련 문의', '주식 거래 세금에 대해 알고 싶습니다.', 4, 2, '세금 관련 정보는 "세금 안내" 메뉴에서 확인하실 수 있습니다.'),
+                                                                                                                    ('기술적 분석 자료', '기술적 분석에 대한 자료를 알고 싶습니다.', 5, 2, '기술적 분석 자료는 "자료실" 메뉴에서 다운로드 가능합니다.'),
+                                                                                                                    ('주식 매매 시 주의사항', '주식 매매 시 주의해야 할 점은 무엇인가요?', 6, 2, '주식 매매 시 항상 리스크를 고려하시기 바랍니다.'),
+                                                                                                                    ('신규 상장 주식 투자', '신규 상장 주식에 대한 정보는 어디서 찾을 수 있나요?', 7, 2, '신규 상장 주식 정보는 "상장 정보" 메뉴에서 확인하실 수 있습니다.'),
+                                                                                                                    ('주식 포트폴리오 관리', '주식 포트폴리오를 어떻게 관리하나요?', 8, 2, '정기적으로 포트폴리오를 점검하고 조정하는 것이 중요합니다.'),
+                                                                                                                    ('상장폐지 주식 처리', '상장폐지된 주식은 어떻게 처리하나요?', 9, 2, '상장폐지 주식은 고객센터에 문의하시면 안내해 드립니다.'),
+                                                                                                                    ('투자 성공 사례 공유', '성공적인 투자 사례를 공유해 주세요.', 10, 2, '성공적인 투자 사례는 포럼에서 확인하실 수 있습니다.'),
+                                                                                                                    ('주식이란 무엇인가요?', '주식은 회사의 소유권을 나타내는 증서입니다. 주식을 소유함으로써 회사의 이익을 분배받을 수 있습니다.', 1, 1, '주식은 회사의 소유권을 나타내는 증서입니다.'),
+                                                                                                                    ('주식 투자에 필요한 기본 지식은?', '주식 투자에는 기본적인 경제 지식과 회사 분석 능력이 필요합니다. 기본적인 재무제표 분석이 중요합니다.', 2, 1, '경제 지식과 회사 분석 능력이 필요합니다.'),
+                                                                                                                    ('주식을 어떻게 구매하나요?', '주식을 구매하려면 증권 계좌를 개설한 후, 원하는 주식을 선택하여 매수 주문을 하시면 됩니다.', 3, 1, '증권 계좌를 개설하고 매수 주문을 하세요.'),
+                                                                                                                    ('주식의 위험 요소는 무엇인가요?', '주식 투자에는 시장 위험, 유동성 위험, 신용 위험 등이 있습니다. 이를 이해하고 투자하는 것이 중요합니다.', 4, 1, '시장 위험, 유동성 위험, 신용 위험이 있습니다.'),
+                                                                                                                    ('배당금은 어떻게 지급되나요?', '배당금은 회사가 이익을 주주에게 분배하는 방식으로, 분기별 또는 연간 지급됩니다.', 5, 1, '회사 이익을 주주에게 분배하는 방식입니다.'),
+                                                                                                                    ('주식 시장이란 무엇인가요?', '주식 시장은 주식이 거래되는 장소로, 증권 거래소와 장외 시장이 포함됩니다.', 6, 1, '주식이 거래되는 장소입니다.'),
+                                                                                                                    ('주식 거래 시간은 언제인가요?', '대부분의 증권 거래소는 오전 9시부터 오후 3시 30분까지 거래가 가능합니다.', 7, 1, '오전 9시부터 오후 3시 30분까지입니다.'),
+                                                                                                                    ('주식 투자 시 유의해야 할 점은?', '투자할 회사의 재무 상태와 시장 동향을 분석하고, 분산 투자하는 것이 중요합니다.', 8, 1, '재무 상태와 시장 동향 분석이 중요합니다.'),
+                                                                                                                    ('외환 거래와 주식 거래의 차이는?', '외환 거래는 통화의 매매이고, 주식 거래는 회사의 소유권을 매매하는 것입니다.', 9, 1, '외환은 통화 매매, 주식은 소유권 매매입니다.'),
+                                                                                                                    ('주식의 종류에는 어떤 것이 있나요?', '주식의 종류로는 보통주와 우선주가 있으며, 각기 다른 권리와 배당 조건을 가집니다.', 10, 1, '보통주와 우선주가 있습니다.'),
+                                                                                                                    ('주식 투자에 대한 세금은 어떻게 되나요?', '주식 매매 시 발생한 양도소득에 대해 세금이 부과됩니다. 보유 기간에 따라 세율이 다릅니다.', 1, 1, '양도소득에 대해 세금이 부과됩니다.'),
+                                                                                                                    ('기술적 분석이란 무엇인가요?', '기술적 분석은 주식의 가격 및 거래량을 분석하여 미래의 가격 흐름을 예측하는 방법입니다.', 2, 1, '가격과 거래량 분석으로 예측합니다.'),
+                                                                                                                    ('주식 투자에서의 분산 투자란?', '분산 투자는 여러 자산에 투자하여 위험을 줄이는 전략입니다. 다양한 기업에 투자하는 것이 좋습니다.', 3, 1, '여러 자산에 투자하여 위험을 줄입니다.'),
+                                                                                                                    ('IPO란 무엇인가요?', 'IPO는 기업이 처음으로 주식을 공개적으로 판매하는 것을 의미합니다. 일반 투자자에게 주식이 제공됩니다.', 4, 1, '기업의 첫 주식 공개입니다.'),
+                                                                                                                    ('주식 매매 시 유용한 정보는?', '기업의 공시자료와 분석 리포트, 뉴스 등을 참고하는 것이 중요합니다.', 5, 1, '공시자료와 분석 리포트를 참고하세요.'),
+                                                                                                                    ('주식 투자에 있어 심리적 요인은?', '투자자의 감정과 심리는 매매 결정에 큰 영향을 미칩니다. 냉정한 판단이 필요합니다.', 6, 1, '감정과 심리가 영향을 미칩니다.'),
+                                                                                                                    ('주식 시장의 변동성을 줄이는 방법은?', '장기 투자와 분산 투자로 변동성을 줄일 수 있습니다. 단기 매매는 위험할 수 있습니다.', 7, 1, '장기 투자와 분산 투자로 줄입니다.'),
+                                                                                                                    ('신용 거래란 무엇인가요?', '신용 거래는 자금을 빌려 주식을 거래하는 방식으로, 높은 수익과 높은 위험이 따릅니다.', 8, 1, '자금을 빌려 거래하는 방식입니다.'),
+                                                                                                                    ('주식 시장의 분석 도구는?', '차트 분석, 캔들스틱 차트, 이동 평균선 등이 있으며, 다양한 분석 도구를 활용할 수 있습니다.', 9, 1, '차트 분석과 이동 평균선 등이 있습니다.'),
+                                                                                                                    ('주식 거래 수수료는 얼마나 되나요?', '주식 거래 수수료는 증권사에 따라 다르며, 거래 금액의 일정 비율로 부과됩니다.', 10, 1, '증권사마다 다릅니다.'),
+                                                                                                                    ('주식의 매도 타이밍은?', '매도 타이밍은 목표가 도달 시 또는 손실이 커질 경우 결정하는 것이 일반적입니다.', 1, 1, '목표가 도달 시 또는 손실 시입니다.'),
+                                                                                                                    ('주식 투자에 대한 기본 원칙은?', '안전한 투자, 분산 투자, 장기 투자 등의 원칙을 지키는 것이 중요합니다.', 2, 1, '안전하고 분산된 장기 투자가 중요합니다.'),
+                                                                                                                    ('주식 시장의 트렌드는 어떻게 파악하나요?', '경제 지표와 뉴스, 전문가 의견 등을 통해 시장 트렌드를 파악할 수 있습니다.', 3, 1, '경제 지표와 뉴스를 참고하세요.'),
+                                                                                                                    ('주식 투자에서의 손실을 최소화하는 방법은?', '손절매를 설정하고, 감정에 휘둘리지 않는 것이 중요합니다.', 4, 1, '손절매를 설정하고 감정을 통제하세요.'),
+                                                                                                                    ('주식 투자 유의사항 안내', '주식 투자 시 반드시 유의해야 할 사항들을 안내합니다. 투자 결정을 내리기 전 충분한 분석이 필요합니다.', 1, 3, ''),
+                                                                                                                    ('신규 상장 주식 안내', '이번 주 새로 상장되는 주식 리스트를 공개합니다. 투자자 여러분의 많은 관심 바랍니다.', 2, 3, ''),
+                                                                                                                    ('주식 거래 수수료 변경 안내', '증권사 거래 수수료가 변경됩니다. 자세한 내용은 홈페이지를 참조해 주세요.', 3, 3, ''),
+                                                                                                                    ('2024년 주식 시장 전망', '2024년 주식 시장에 대한 전문가의 전망을 공유합니다. 다양한 의견을 참고하시기 바랍니다.', 4, 3, ''),
+                                                                                                                    ('주식 투자 세미나 개최', '주식 투자에 대한 세미나를 개최합니다. 많은 참석 부탁드립니다.', 5, 3, ''),
+                                                                                                                    ('배당금 지급 일정 안내', '배당금 지급 일정에 대한 안내입니다. 주주 여러분께서는 확인해 주시기 바랍니다.', 6, 3, ''),
+                                                                                                                    ('주식 투자 관련 자료 제공', '주식 투자에 도움이 되는 자료를 제공합니다. 필요한 자료를 다운로드하세요.', 7, 3, ''),
+                                                                                                                    ('주식 시장 동향 분석', '최근 주식 시장의 동향에 대한 분석을 제공합니다. 투자에 참고하시기 바랍니다.', 8, 3, ''),
+                                                                                                                    ('IPO 일정 안내', '상장 예정인 기업의 IPO 일정에 대한 안내입니다. 많은 관심 부탁드립니다.', 9, 3, ''),
+                                                                                                                    ('주식 거래 시스템 점검 안내', '주식 거래 시스템의 점검 일정에 대한 안내입니다. 점검 시간 동안 거래가 불가능합니다.', 10, 3, ''),
+                                                                                                                    ('투자자 보호 정책 안내', '투자자 보호를 위한 정책에 대한 안내입니다. 자세한 내용은 홈페이지를 참조해 주세요.', 1, 3, ''),
+                                                                                                                    ('주식 관련 FAQ 업데이트', '주식 관련 FAQ를 업데이트했습니다. 자주 묻는 질문을 확인해 보세요.', 2, 3, ''),
+                                                                                                                    ('장기 투자 전략 안내', '효과적인 장기 투자 전략에 대한 안내입니다. 투자 시 참고하시기 바랍니다.', 3, 3, ''),
+                                                                                                                    ('주식 시장 주요 뉴스', '최근 주식 시장에서의 주요 뉴스를 공유합니다. 투자에 도움이 되길 바랍니다.', 4, 3, ''),
+                                                                                                                    ('재무제표 분석 방법 안내', '재무제표 분석 방법에 대한 안내입니다. 투자 결정에 도움이 될 것입니다.', 5, 3, ''),
+                                                                                                                    ('주식 거래 교육 프로그램 안내', '주식 거래에 대한 교육 프로그램을 안내합니다. 많은 참여 부탁드립니다.', 6, 3, ''),
+                                                                                                                    ('소액 투자자 지원 정책', '소액 투자자를 위한 지원 정책에 대한 안내입니다. 자세한 내용은 홈페이지를 확인하세요.', 7, 3, ''),
+                                                                                                                    ('주식 시장의 리스크 관리', '주식 투자 시 리스크 관리를 위한 방법을 안내합니다. 안전한 투자를 위해 참고하세요.', 8, 3, ''),
+                                                                                                                    ('시장 변동성 대응 전략', '주식 시장의 변동성에 대응하는 전략에 대한 안내입니다. 투자에 도움이 되길 바랍니다.', 9, 3, ''),
+                                                                                                                    ('주식 투자 관련 웹사이트 추천', '주식 투자에 유용한 웹사이트를 추천드립니다. 참고하시기 바랍니다.', 10, 3, ''),
+                                                                                                                    ('증권사 비교 안내', '여러 증권사의 서비스와 수수료를 비교한 내용을 안내합니다. 선택에 도움이 되길 바랍니다.', 1, 3, ''),
+                                                                                                                    ('주식 관련 서적 추천', '주식 투자에 도움이 되는 서적을 추천드립니다. 독서로 지식을 넓혀보세요.', 2, 3, ''),
+                                                                                                                    ('주식 시장 전망 세미나 안내', '주식 시장 전망에 대한 세미나를 개최합니다. 많은 참석 부탁드립니다.', 3, 3, ''),
+                                                                                                                    ('주식 투자 시 유의해야 할 심리', '주식 투자에서의 심리적 요인에 대한 안내입니다. 감정 관리를 잘 하세요.', 4, 3, ''),
+                                                                                                                    ('주식 관련 블로그 추천', '주식 투자에 유용한 블로그를 추천드립니다. 유익한 정보를 얻어보세요.', 5, 3, ''),
+                                                                                                                    ('주식 투자 성공 사례 공유', '주식 투자 성공 사례를 공유합니다. 많은 영감을 얻으시길 바랍니다.', 6, 3, ''),
+                                                                                                                    ('주식 시장의 새로운 트렌드', '주식 시장에서의 새로운 트렌드를 소개합니다. 최신 정보를 확인하세요.', 7, 3, ''),
+                                                                                                                    ('고객 서비스 안내', '고객 서비스에 대한 안내입니다. 궁금한 점이 있으시면 언제든지 문의해 주세요.', 8, 3, ''),
+                                                                                                                    ('주식 투자 커뮤니티 안내', '주식 투자에 관련된 커뮤니티를 안내합니다. 많은 참여 부탁드립니다.', 9, 3, ''),
+                                                                                                                    ('주식 시장 관련 이벤트 안내', '주식 시장 관련 이벤트에 대한 안내입니다. 많은 관심 부탁드립니다.', 10, 3, '');

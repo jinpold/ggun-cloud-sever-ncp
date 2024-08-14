@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 public class ArticleModel extends BaseEntity {
     @Id
-    @Column(name = "article_id", nullable = false)
+    @Column(name = "articles_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
@@ -20,6 +20,8 @@ public class ArticleModel extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserModel writerId;
-    private String boardId;
+    @ManyToOne
+    @JoinColumn(name = "boards_id")
+    private BoardModel boardId;
     private String answer;
 }

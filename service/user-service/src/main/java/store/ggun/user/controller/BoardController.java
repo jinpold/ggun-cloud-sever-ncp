@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path="/api/boards")
+@RequestMapping(path="/boards")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BoardController {
 
@@ -33,8 +33,8 @@ public class BoardController {
     }
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<BoardModel>> list(){
-        return ResponseEntity.ok(repository.findAll());
+    public ResponseEntity<List<BoardDto>> list(){
+        return ResponseEntity.ok(service.findAll());
     }
 
     @DeleteMapping(path = "/delete")

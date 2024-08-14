@@ -39,7 +39,6 @@ public class WebSecurityConfig {
                 .authorizeExchange(authorize ->
                         authorize.anyExchange().permitAll()
                 )
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 활성화 및 설정 적용
@@ -47,6 +46,7 @@ public class WebSecurityConfig {
                 .oauth2Login(oauth -> oauth
                         .authorizationRequestResolver(serverOAuth2AuthorizationRequestResolver())
                         .authenticationSuccessHandler(customAuthenticationSuccessHandler)
+                        .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 )
                 .build();
     }

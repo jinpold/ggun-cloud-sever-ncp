@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  labels:
+    app: zookeeper
+spec:
+  ports:
+    - name: zookeeper
+      port: 2181
+      targetPort: 2181
+  selector:
+    app: zookeeper
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+  labels:
+    app: kafka
+spec:
+  ports:
+    - name: kafka-port
+      port: 9092
+      targetPort: 9092
+  selector:
+    app: kafka
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-service
+  labels:
+    app: eureka
+spec:
+  ports:
+    - name: eureka
+      port: 8761
+      targetPort: 8761
+  selector:
+    app: eureka
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-server
+  labels:
+    app: gateway
+spec:
+  ports:
+    - name: gateway-port
+      port: 80
+      targetPort: 80
+  selector:
+    app: gateway
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-service
+  labels:
+    app: admin
+spec:
+  ports:
+    - name: admin
+      port: 8081
+      targetPort: 8081
+  selector:
+    app: admin
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-service
+  labels:
+    app: chat
+spec:
+  ports:
+    - name: chat
+      port: 8090
+      targetPort: 8090
+  selector:
+    app: chat
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alarm-service
+  labels:
+    app: alarm
+spec:
+  ports:
+    - name: alarm
+      port: 8091
+      targetPort: 8091
+  selector:
+    app: alarm
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+  labels:
+    app: account
+spec:
+  ports:
+    - name: account
+      port: 8082
+      targetPort: 8082
+  selector:
+    app: account
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    app: user
+spec:
+  ports:
+    - name: user
+      port: 8083
+      targetPort: 8083
+  selector:
+    app: user
+  type: ClusterIP

@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import store.ggun.user.domain.QUserModel;
 import store.ggun.user.domain.UserDto;
 import store.ggun.user.domain.UserModel;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     private final JPAQueryFactory queryFactory;
     private final QUserModel qUser = QUserModel.userModel;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
@@ -24,7 +26,7 @@ public class UserDaoImpl implements UserDao{
         JPAUpdateClause updateClause = queryFactory.update(qUser);
 
         if (userDto.getPassword() != null) {
-            updateClause.set(qUser.password, userDto.getPassword());
+            updateClause.set(qUser.password, passwordEncoder.encode(userDto.getPassword()));
         }
         if (userDto.getName() != null) {
             updateClause.set(qUser.name, userDto.getName());

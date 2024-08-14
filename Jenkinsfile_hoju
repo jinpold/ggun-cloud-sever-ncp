@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_CREDENTIALS_ID = 'docker-token'
+        IMAGE_NAME = 'bkwangho/ggun'
+        REGISTRY = 'docker.io'
+        KUBERNETES_NAMESPACE = 'ggun'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/BKWANGHO/ggun-backend-private.git'
+            }
+        }
+        stage('Set Execute Permission') {
+            steps {
+                sh 'chmod +x ./gradlew'
+            }
+        }
+      stage('Build') {
+            steps {
+                script {
+                    def servicesToBuild = [
+                        "server:eureka-server",
+                        "server:gateway-server",
+                        "service:account-service",
+                        "service:alarm-service",
+                        "service:admin-service",
+                        "service:chat-service",
+                        "service:user-service"
+                    ]
+
+                    servicesToBuild.each { servicePath ->
+                        sh "./gradlew :${servicePath}:bootJar"
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker-compose build"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $REGISTRY"
+                    }
+                    sh "docker-compose push"
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Apply the combined deployment and service YAML files to the Kubernetes cluster
+                    sh "kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml get nodes"
+                    sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml apply -f ./k8s/combined-service.yaml --namespace=${KUBERNETES_NAMESPACE}'
+                    sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml apply -f ./k8s/combined-deployment.yaml --namespace=${KUBERNETES_NAMESPACE}'
+                    // sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml apply -f ./k8s/eureka-deployment.yaml --namespace=${KUBERNETES_NAMESPACE}'
+                    // sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml apply -f ./k8s/gateway-deployment.yaml --namespace=${KUBERNETES_NAMESPACE}'
+                    // sh 'kubectl --kubeconfig=$HOME/.ncloud/kubeconfig.yaml apply -f ./k8s/other-deployment.yaml --namespace=${KUBERNETES_NAMESPACE}'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

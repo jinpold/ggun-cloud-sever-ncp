@@ -1,4 +1,4 @@
-//package store.ggun.chat.exception;
+package store.ggun.chat.exception;//package store.ggun.chat.exception;
 //
 //import org.springframework.security.core.AuthenticationException;
 //

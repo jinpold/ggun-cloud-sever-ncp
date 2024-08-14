@@ -1,4 +1,4 @@
-//package store.ggun.chat.controller;
+package store.ggun.chat.controller;//package store.ggun.chat.controller;
 //
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;

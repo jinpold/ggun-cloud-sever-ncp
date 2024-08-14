@@ -15,8 +15,8 @@ public interface UserRepository extends JpaRepository<UserModel, Long>, UserDao 
 
     boolean existsByUsername(String username);
 
-    @Query(value = "select u.id,u.role from users u where u.email=:email", nativeQuery = true)
-    Long findByEmailOauth(@RequestParam String email);
+    @Query(value = "select u.* from users u where u.email=:email", nativeQuery = true)
+    UserModel findByEmailOauth(@RequestParam String email);
 
     @Query(value = "select u.color from users u where u.users_id=:id", nativeQuery = true)
     String color(@RequestParam Long id);

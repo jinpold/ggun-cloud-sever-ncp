@@ -69,13 +69,13 @@ public class AccHistoryServiceImpl implements AccHistoryService {
     }
 
     @Override
-    public Page<AccHistoryDto> findByAccount(Long id,int page) {
-
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("regDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+    public List<AccHistoryDto> findByAccount(Long id) {
+//
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("regDate"));
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 //        Page<AccHistoryDto> a = repository.findByAccountId(id,pageable).map(i->entityToDto(i));
 //        log.info("확인 {}" , a);
-        return repository.findByAccountId(id,pageable).map(i->entityToDto(i));
+        return repository.findByAccountId(id).stream().map(i->entityToDto(i)).toList();
     }
 }

@@ -8,6 +8,8 @@ import store.ggun.user.domain.Messenger;
 import store.ggun.user.repository.BoardRepository;
 import store.ggun.user.service.BoardService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
@@ -15,7 +17,11 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository repository;
     @Override
     public Messenger save(BoardDto board) {
-        BoardModel boardModel = dtoToModel(board);
+        BoardModel boardModel = BoardModel.builder()
+                .title(board.getTitle())
+                .content(board.getContent())
+                .description(board.getDescription())
+                .build();
         if (repository.existsByTitle(board.getTitle())){
             return Messenger.builder()
                     .message("이미 존재하는 게시판 입니다.")
@@ -34,6 +40,11 @@ public class BoardServiceImpl implements BoardService {
         return Messenger.builder()
                 .message(repository.findById(boardModel.getId()).orElseThrow().equals(boardModel)?"SUCCESS":"FAIL")
                 .build();
+    }
+
+    @Override
+    public List<BoardDto> findAll() {
+        return repository.findAllR();
     }
 
     @Override

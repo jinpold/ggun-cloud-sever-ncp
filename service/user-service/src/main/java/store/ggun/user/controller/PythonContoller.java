@@ -25,7 +25,7 @@ public class PythonContoller {
 
 
     @GetMapping("/color")
-    public ResponseEntity<String> join(@RequestParam Long id) {
+    public ResponseEntity<String> join(@RequestHeader("id") Long id) {
         return ResponseEntity.ok(userRepository.color(id));
     }
 }

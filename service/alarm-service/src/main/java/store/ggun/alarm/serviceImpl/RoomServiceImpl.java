@@ -4,7 +4,7 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -24,7 +24,7 @@ import store.ggun.alarm.exception.ChatException;
 import store.ggun.alarm.repository.ChatRepository;
 import store.ggun.alarm.repository.RoomRepository;
 import store.ggun.alarm.service.RoomService;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;

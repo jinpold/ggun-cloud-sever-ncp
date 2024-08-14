@@ -32,5 +32,6 @@ public class OwnStockDto {
     private String regDate;
     private String modDate;
     private String color;
+    private long userId;
 
 }

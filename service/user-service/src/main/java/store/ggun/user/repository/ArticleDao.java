@@ -1,12 +1,17 @@
 package store.ggun.user.repository;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import store.ggun.user.domain.ArticleDto;
-import store.ggun.user.domain.ArticleModel;
+import store.ggun.user.domain.ArticleDto2;
 
 import java.util.List;
 
 public interface ArticleDao {
-    public List<ArticleDto> findByBoardIdDao(String boardId);
+    List<ArticleDto> findByBoardIdDao(Long boardId);
 
-    public ArticleModel modifyArticle(ArticleDto model, String id);
+    ArticleDto2 findByArticleId(Long model);
+
+    ArticleDto findByArticleIdR(Long id);
+
+    Long findByArticleIdQuery(Long id);
 }

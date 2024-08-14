@@ -22,10 +22,11 @@ public class AuthServiceImpl {
     private final JwtTokenProvider jwtTokenProvider;
 
     public Mono<ServerResponse> localLogin(LoginDto loginDTO) {
-        return login(loginDTO, "lb://user-service/auth/login/local");
+        return login(loginDTO, "lb://user-service/auth/login");
     }
 
     public Mono<ServerResponse> adminLogin(LoginDto loginDTO) {
+        System.out.println("-----------------adminLogin-----------------");
         return login(loginDTO, "lb://admin-service/auth/login");
     }
 
@@ -84,9 +85,11 @@ public class AuthServiceImpl {
                 .onErrorResume(GatewayException.class, e -> ServerResponse.status(e.getStatus().getStatus().value()).bodyValue(e.getMessage()));
     }
     private Mono<ServerResponse> generateTokensAndCreateResponse(PrincipalUserDetails userDetails) {
+        log.info("dsafdsads"+userDetails.getUsername());
         return jwtTokenProvider.generateToken(userDetails, false)
                 .zipWith(jwtTokenProvider.generateToken(userDetails, true))
                 .flatMap(tokens -> {
+                    log.info("qqqqqqqqqq");
                     String accessToken = tokens.getT1();
                     String refreshToken = tokens.getT2();
                     log.info("accessToken: {}", accessToken);

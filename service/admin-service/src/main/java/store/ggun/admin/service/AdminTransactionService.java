@@ -4,7 +4,6 @@ import store.ggun.admin.domain.dto.AdminTransactionDto;
 import store.ggun.admin.domain.dto.TradeMetrics;
 import store.ggun.admin.domain.model.AdminTransactionModel;
 
-import java.util.List;
 import java.util.Map;
 
 public interface AdminTransactionService extends AdminCommandService<AdminTransactionDto>, AdminQueryService<AdminTransactionDto> {

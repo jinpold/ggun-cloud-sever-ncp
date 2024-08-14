@@ -21,22 +21,22 @@ public class ArticleController {
     private final ArticleService service;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<ArticleDto>> list(@RequestParam String boardId){
+    public ResponseEntity<List<ArticleDto>> list(@RequestParam Long boardId){
         return ResponseEntity.ok(service.findAllByBoardId(boardId));
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<ArticleModel> save(@RequestBody ArticleDto model, @RequestHeader("id") String id){
+    public ResponseEntity<ArticleModel> save(@RequestBody ArticleDto model, @RequestHeader("id") Long id){
         return ResponseEntity.ok(service.save(model,id));
     }
 
     @PostMapping(path = "/modify")
-    public ResponseEntity<ArticleModel> modify(@RequestBody ArticleDto model, @RequestHeader("id") String id){
+    public ResponseEntity<ArticleDto> modify(@RequestBody ArticleDto model, @RequestHeader("id") Long id){
         return ResponseEntity.ok(service.modify(model,id));
     }
 
     @DeleteMapping(path = "/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody Long boardId, @RequestHeader("id") String id){
-        return ResponseEntity.ok(service.delete(boardId,id));
+    public ResponseEntity<Messenger> delete(@RequestParam Long articleId, @RequestHeader("id") Long id){
+        return ResponseEntity.ok(service.delete(articleId,id));
     }
 }

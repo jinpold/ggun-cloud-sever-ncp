@@ -30,6 +30,7 @@ public class AccountDto {
     private String paymentUid;
     private String regDate;
     private String modDate;
+    private String totalBalance;
 
     private Long userId;
 

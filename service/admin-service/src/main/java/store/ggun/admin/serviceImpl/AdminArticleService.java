@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import store.ggun.admin.domain.dto.AdminArticleDto;
 import store.ggun.admin.domain.model.AdminArticleModel;
-import store.ggun.admin.domain.model.AdminModel;
 import store.ggun.admin.domain.model.AdminBoardModel;
+import store.ggun.admin.domain.model.AdminModel;
 import store.ggun.admin.domain.model.Messenger;
-import store.ggun.admin.repository.jpa.AdminRepository;
 import store.ggun.admin.repository.jpa.AdminArticleRepository;
 import store.ggun.admin.repository.jpa.AdminBoardRepository;
+import store.ggun.admin.repository.jpa.AdminRepository;
 
 import java.sql.SQLException;
 import java.util.List;
