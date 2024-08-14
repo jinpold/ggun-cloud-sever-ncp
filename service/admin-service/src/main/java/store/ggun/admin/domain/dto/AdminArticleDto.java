@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
-@Component  // = object와 유사, 제일 범위가 큼
+@Component
 @Data
 @Builder
 @NoArgsConstructor

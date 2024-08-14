@@ -1,5 +1,4 @@
 package store.ggun.admin.controller;
-
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +9,9 @@ import store.ggun.admin.domain.dto.AdminArticleDto;
 import store.ggun.admin.domain.model.Messenger;
 import store.ggun.admin.repository.jpa.AdminArticleRepository;
 import store.ggun.admin.serviceImpl.AdminArticleService;
-
 import java.sql.SQLException;
 import java.util.List;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*") // 기존에 origins = http://localhost:3000 이던걸 보안 걸었음. 퍼사드 패턴
 @RestController
 @RequiredArgsConstructor
 @ApiResponses(value = {
