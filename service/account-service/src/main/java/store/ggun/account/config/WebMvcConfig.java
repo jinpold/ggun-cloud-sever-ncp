@@ -1,6 +1,4 @@
 package store.ggun.account.config;
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class WebMvcConfig implements WebMvcConfigurer {
 
-//    private final AuthInterceptor authInterceptor;
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//             registry.addInterceptor(authInterceptor)
-//                .addPathPatterns("/accounts/**")
-//                .excludePathPatterns("/accounts/auth/**");
-//    }
+
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
