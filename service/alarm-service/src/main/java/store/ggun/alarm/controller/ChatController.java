@@ -16,8 +16,10 @@ import store.ggun.alarm.domain.model.RoomModel;
 import store.ggun.alarm.exception.ChatException;
 import store.ggun.alarm.service.RoomService;
 
+import java.time.Duration;
+
 @Slf4j
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/chats")
 @RequiredArgsConstructor
@@ -49,14 +51,27 @@ public class ChatController {
         return roomService.findAllChats();
     }
 
+    @GetMapping(value = "/receive/{roomId}", produces = "text/event-stream")
+    public Flux<ServerSentEvent<ChatDto>> subscribeByRoomId(@PathVariable("roomId") String roomId) {
+        log.info("Subscribe chat by room id {}", roomId);
 
-
-    @GetMapping("/receive/{roomId}")
-    public Flux<ServerSentEvent<ChatDto>> subscribeByRoomId(@PathVariable("roomId")String roomId) {
-        log.info("subscribe chat by room id {}", roomId);
-        return roomService.subscribeByRoomId(roomId)
+        // 채팅 메시지 스트림
+        Flux<ServerSentEvent<ChatDto>> chatFlux = roomService.subscribeByRoomId(roomId)
+                .map(chatDto -> ServerSentEvent.<ChatDto>builder()
+                        .data(chatDto.data())
+                        .build())
                 .switchIfEmpty(Flux.error(new ChatException("Room not found")));
+
+        // Keep-alive 스트림
+        Flux<ServerSentEvent<ChatDto>> keepAliveFlux = Flux.interval(Duration.ofSeconds(15))
+                .map(seq -> ServerSentEvent.<ChatDto>builder()
+                        .comment("keep-alive")  // 빈 데이터
+                        .build());
+
+        return Flux.merge(chatFlux, keepAliveFlux)
+                .doOnCancel(() -> log.info("SSE connection closed for roomId: {}", roomId));
     }
+
     @PostMapping("/send")
     public Mono<ChatDto> sendChat(@RequestBody ChatDto chatDTO) {
         log.info("Send chat {}", chatDTO.toString());

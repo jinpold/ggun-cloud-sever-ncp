@@ -22,7 +22,7 @@ public class ChatServiceImpl {
 
     public Mono<Messenger> send(ChatDto chatFluxModel) {
         return reactiveKafkaProducerTemplate.send(
-                        "chat",
+                        "chats",
 
                         ChatModel.builder()
                                 .roomId(chatFluxModel.getRoomId())

@@ -90,7 +90,6 @@ dependencies {
 
 	//smtp
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'io.projectreactor:reactor-core'
 	implementation 'com.sun.mail:jakarta.mail:2.0.1'
 	implementation 'io.projectreactor:reactor-core:3.5.0'
 
