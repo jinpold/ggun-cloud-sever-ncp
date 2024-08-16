@@ -54,7 +54,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000","https://localhost:3000","https://www.ggun.store","http://www.ggun.store")); // allowedOriginPatterns 사용
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000","https://localhost:3000", "http://localhost:3001","https://localhost:3001","https://www.ggun.store","http://www.ggun.store")); // allowedOriginPatterns 사용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With", "remember-me"));
         configuration.setAllowCredentials(true);
