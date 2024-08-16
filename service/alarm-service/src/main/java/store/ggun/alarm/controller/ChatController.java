@@ -19,7 +19,7 @@ import store.ggun.alarm.service.RoomService;
 import java.time.Duration;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*" , allowedHeaders = "*")
 @RestController
 @RequestMapping("/chats")
 @RequiredArgsConstructor

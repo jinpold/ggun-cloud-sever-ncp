@@ -23,6 +23,7 @@ import store.ggun.alarm.domain.model.RoomModel;
 import store.ggun.alarm.exception.ChatException;
 import store.ggun.alarm.repository.ChatRepository;
 import store.ggun.alarm.repository.RoomRepository;
+import store.ggun.alarm.service.ChatMapper;
 import store.ggun.alarm.service.RoomService;
 
 import java.time.LocalDateTime;
@@ -59,7 +60,8 @@ public class RoomServiceImpl implements RoomService {
         FindAndModifyOptions options = new FindAndModifyOptions().returnNew(true).upsert(true);
 
         return mongoTemplate.findAndModify(query, update, options, CounterDocument.class)
-                .map(CounterDocument::getSeq);
+                .map(CounterDocument::getSeq)
+                .switchIfEmpty(Mono.error(new IllegalStateException("Failed to generate sequence ID")));
     }
 
     @Override
@@ -95,21 +97,18 @@ public class RoomServiceImpl implements RoomService {
                     return Mono.just(room);
                 })
                 .flatMap(room -> getNextSequenceId("chatId")
-                        .flatMap(seqId -> chatRepository.save(ChatModel.builder()
-                                .id(String.valueOf(seqId)) // 순차적인 ID를 설정
-                                .roomId(chatDTO.getRoomId())
-                                .message(chatDTO.getMessage())
-                                .senderId(chatDTO.getSenderId())
-                                .senderName(chatDTO.getSenderName())
-                                .createdAt(LocalDateTime.now())
-                                .build())))
-                .flatMap(i -> Mono.just(ChatDto.builder()
-                        .roomId(i.getRoomId())
-                        .senderId(i.getSenderId())
-                        .senderName(i.getSenderName())
-                        .message(i.getMessage())
-                        .createdAt(i.getCreatedAt())
-                        .build()))
+                        .flatMap(seqId -> {
+                            ChatModel chatModel = ChatMapper.toModel(chatDTO);
+                            chatModel.setId(String.valueOf(seqId)); // 순차적인 ID 설정
+                            chatModel.setCreatedAt(LocalDateTime.now()); // 생성 시간 설정
+
+                            return chatRepository.save(chatModel)
+                                    .doOnSuccess(savedChat -> log.info("Saved ChatModel with ID: {}", savedChat.getId()));
+                        })
+                )
+                .map(ChatMapper::toDto) // 모델을 DTO로 변환
+                .doOnSuccess(chatDto -> log.info("ChatDto created with roomId: {}, senderId: {}, message: {}, createdAt: {}, ID: {}",
+                        chatDto.getRoomId(), chatDto.getSenderId(), chatDto.getMessage(), chatDto.getCreatedAt(), chatDto.getId()))
                 .doOnSuccess(chatDto -> {
                     // Ensure sink exists before emitting
                     Sinks.Many<ServerSentEvent<ChatDto>> sink = chatSinks.get(chatDto.getRoomId());
@@ -119,7 +118,8 @@ public class RoomServiceImpl implements RoomService {
                     } else {
                         log.warn("No sink found for roomId: {}", chatDto.getRoomId());
                     }
-                });
+                })
+                .doOnError(error -> log.error("Error occurred while saving chat: {}", error.getMessage(), error));
     }
 
 

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ChatDto {
 
-    private String id;
+    private String id; // String 타입으로 설정
     private String roomId;
     private String senderId;
     private String senderName;

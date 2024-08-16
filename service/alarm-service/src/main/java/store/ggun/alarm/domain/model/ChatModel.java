@@ -8,22 +8,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Setter
-@Getter
+@Data
 @Document(collection = "chats")
 public class ChatModel implements Serializable {
     @Id
-    private String id;
+    private String id; // String 타입으로 설정
     private String roomId;
     private String senderId;
     private String senderName;
-    private String receiverId;
     private String message;
-    @CreatedDate
     private LocalDateTime createdAt;
-
 }

@@ -2,6 +2,7 @@ package store.ggun.alarm.domain.dto;
 
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,5 +13,6 @@ import org.springframework.stereotype.Component;
 @Builder
 public class ChatIdRequest {
 
+    @Id
     private String chatId;
 }
