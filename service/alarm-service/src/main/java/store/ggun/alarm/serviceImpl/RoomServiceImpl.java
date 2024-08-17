@@ -35,10 +35,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
 
+
+    private final KafkaTemplate<String, ChatModel> kafkaTemplate;
     private final RoomRepository roomRepository;
     private final ChatRepository chatRepository;
     private final Map<String, Sinks.Many<ServerSentEvent<ChatDto>>> chatSinks;
-    private final KafkaTemplate<String, ChatModel> kafkaTemplate;
     private final ReactiveMongoTemplate mongoTemplate;
 
     @PreDestroy
@@ -229,6 +230,7 @@ public class RoomServiceImpl implements RoomService {
 
         return roomRepository.save(newRoom)
                 .doOnSuccess(room -> log.info("Created new room with id: {}", roomId));
+
     }
 
     @Override
@@ -262,5 +264,6 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Flux<ChatModel> findAllChats() {
         return chatRepository.findAll();
+
     }
 }

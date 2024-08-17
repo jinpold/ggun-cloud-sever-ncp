@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class AccountDto {
 
-
     private Long id;
     private String acno;
     private Long receiveAcId;
@@ -31,9 +30,7 @@ public class AccountDto {
     private String regDate;
     private String modDate;
     private String totalBalance;
-
     private Long userId;
-
 //    private List<Trade> trades = new ArrayList<>();
 
 }
