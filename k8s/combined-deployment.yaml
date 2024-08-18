@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
         - name: eureka
-          image: bkwangho/eureka:latest
+          image: jinpold/eureka:latest
           ports:
             - containerPort: 8761
           livenessProbe:
@@ -101,19 +101,19 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: bkwangho/gateway:latest
+          image: jinpold/gateway:latest
           ports:
             - containerPort: 80
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: 80
+              port: 443
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: 80
+              port: 443
             initialDelaySeconds: 30
             periodSeconds: 10
 ---
@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
         - name: admin
-          image: bkwangho/admin:latest
+          image: jinpold/admin:latest
           ports:
             - containerPort: 8081
 ---
@@ -157,7 +157,7 @@ spec:
     spec:
       containers:
         - name: chat
-          image: bkwangho/chat:latest
+          image: jinpold/chat:latest
           ports:
             - containerPort: 8090
 ---
@@ -179,7 +179,7 @@ spec:
     spec:
       containers:
         - name: alarm
-          image: bkwangho/alarm:latest
+          image: jinpold/alarm:latest
           ports:
             - containerPort: 8091
 
@@ -202,7 +202,7 @@ spec:
     spec:
       containers:
         - name: manage
-          image: bkwangho/account:latest
+          image: jinpold/account:latest
           ports:
             - containerPort: 8082
 
@@ -225,6 +225,6 @@ spec:
     spec:
       containers:
         - name: user
-          image: bkwangho/user:latest
+          image: jinpold/user:latest
           ports:
             - containerPort: 8083
