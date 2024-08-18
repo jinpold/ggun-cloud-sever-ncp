@@ -77,19 +77,33 @@ pipeline {
         }
 
         // kube 배포
-
        stage('Deploy to Kubernetes') {
             steps {
                 script {
                        sh "kubectl --kubeconfig=$HOME/kubeconfig.yaml get nodes"
                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/combined-service.yaml'
                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/combined-deployment.yaml'
-//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/ggun-deployment.yml'
-//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/ggun-service.yml'
-//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml delete pod -l app=ggun'
+
                 }
             }
        }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/ggun-deployment.yml'
+//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/ggun-service.yml'
+//                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml delete pod -l app=ggun'

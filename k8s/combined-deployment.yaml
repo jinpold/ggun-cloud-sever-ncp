@@ -229,6 +229,3 @@ spec:
           ports:
             - containerPort: 8083
 
-
-
-
