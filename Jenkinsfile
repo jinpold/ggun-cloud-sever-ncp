@@ -22,6 +22,7 @@ pipeline {
             }
         }
 
+        // 자바 필드
          stage('Java Build') {
             steps {
                 script {
@@ -65,16 +66,6 @@ pipeline {
             }
         }
 
-//         stage("Docker Image Tag") {
-//             steps {
-//                 script {
-//                     services.split(',').each { service ->
-//                         sh "docker tag $COMPOSE_TAGNAME/${service}:$PUSH_VERSION $DOCKERHUB_CREDENTIALS_USR/$service:$PUSH_VERSION"
-//                     }
-//                 }
-//             }
-//         }
-
         stage("Docker Push") {
             steps {
                 script {
@@ -84,6 +75,8 @@ pipeline {
                 }
             }
         }
+
+        // kube 배포
 
        stage('Deploy to Kubernetes') {
             steps {

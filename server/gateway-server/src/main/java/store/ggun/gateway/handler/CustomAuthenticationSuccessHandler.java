@@ -97,9 +97,6 @@ public class CustomAuthenticationSuccessHandler implements ServerAuthenticationS
                 });
     }
 
-
-
-
     private byte[] writeValueAsBytes(MessengerDto messengerDto) {
         try {
             return objectMapper.writeValueAsBytes(messengerDto);
