@@ -33,9 +33,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-service
-  labels:
-    app: eureka
+  name: eureka
+#  labels:
+#    app: eureka
 spec:
   ports:
     - name: eureka
