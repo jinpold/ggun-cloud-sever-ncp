@@ -4,7 +4,7 @@ pipeline {
         PUSH_VERSION = "latest"
         COMPOSE_TAGNAME = 'ggun'
         DOCKERHUB_CREDENTIALS = credentials('docker-token')
-        services = "gateway,eureka,user,chat,alarm,admin,account"
+        services = "eureka,gateway,user,chat,alarm,admin,account"
     }
 
     stages {
