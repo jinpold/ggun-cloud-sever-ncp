@@ -103,7 +103,7 @@ spec:
         - name: gateway
           image: jinpold/gateway:latest
           ports:
-            - containerPort: 80
+            - containerPort: 443
           livenessProbe:
             httpGet:
               path: /actuator/health
