@@ -83,6 +83,9 @@ pipeline {
                        sh "kubectl --kubeconfig=$HOME/kubeconfig.yaml get nodes"
                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/combined-service.yaml --namespace=ggun'
                        sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/combined-deployment.yaml --namespace=ggun'
+                       sh 'kubectl --kubeconfig=$HOME/kubeconfig.yaml apply -f ./k8s/eureka-service.yaml --namespace=ggun'
+
+
                 }
             }
        }
