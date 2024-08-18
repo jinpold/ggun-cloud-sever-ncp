@@ -228,3 +228,7 @@ spec:
           image: jinpold/user:latest
           ports:
             - containerPort: 8083
+
+
+
+
