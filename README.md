@@ -1,4 +1,6 @@
-ggun 프로젝트 - Backend Repository README
+[네이버 클랑루드 데브옵스 과정]
+
+- GGUN(꾼) 팀 프로젝트 - Backend Repository README
 
 [프로젝트 개요]
 
