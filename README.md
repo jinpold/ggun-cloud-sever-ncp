@@ -32,24 +32,29 @@ Kubernetes: NAVER CLOUD에 Kubernetes를 배포하여 안정적이고 확장 가
 주요 기능: 공지 알림, 단체 메일 발송, SSE 기반 실시간 공지, Kafka를 통한 관리자 1:1 채팅, AWS S3 연동 파일 업로드/다운로드
 
 6. 핵심 기능
-AI 기반 자동매매
+   
+- AI 기반 자동매매
 
 Facebook의 Prophet 모델을 사용하여 10일 후의 주가를 예측합니다.
 yfinance의 종목별 3년간 데이터를 이용하여 예측치를 생성하며, 예측된 주가 상승률과 사용자의 투자 성향을 비교하여 자동 매수/매도를 진행합니다.
 
-모의투자 및 성능 평가
+- 모의투자 및 성능 평가, 비교 분석
+
 한국투자증권 모의투자 API를 사용하여 수강생 10명의 계좌를 개설, 투자 성향에 맞춰 모의투자를 진행합니다.
 예측된 주가와 실제 모의투자를 비교 분석하여 AI 모델의 성능을 평가합니다.
 
 7. 기술 스택
-Backend
-Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI)
-AI Model: Prophet
-Database: MySQL, MongoDB, Redis
-Frontend
-Framework: Next.js 14, TypeScript, Chart.js, TailwindCSS, Zustand, Tanstack/React-query, JWT-Decoder
-DevOps
+
+[Backend]
+
+- Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI)
+
+- Database: MySQL, MongoDB, Redis
+
+[DevOps]
+
 Tools: Jenkins, Docker, Kubernetes, Synology NAS, GitHub
 
-9. 협업 도구
+8. 협업 도구
+   
 Tools: Github, Slack, Jira, Notion
