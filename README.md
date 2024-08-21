@@ -29,7 +29,7 @@ Kubernetes: NAVER CLOUD에 Kubernetes를 배포하여 안정적이고 확장 가
 4. CHAT-SERVICE
 주요 기능: 종목별 실시간 채팅, 다대다 채팅, SSE 기반 실시간 대화
 5. ALARM-SERVICE
-주요 기능: 공지 알림, 단체 메일 발송, SSE 기반 실시간 공지, AWS S3 연동 파일 업로드/다운로드
+주요 기능: 공지 알림, 단체 메일 발송, SSE 기반 실시간 공지, Kafka를 통한 관리자 1:1 채팅, AWS S3 연동 파일 업로드/다운로드
 
 6. 핵심 기능
 AI 기반 자동매매
