@@ -1,4 +1,4 @@
-[네이버 클랑루드 데브옵스 과정]
+[네이버 클라우드 데브옵스 과정]
 
 - GGUN(꾼) 팀 프로젝트 - Backend Repository README
 
