@@ -11,62 +11,82 @@
 # [아키텍처 개요]
 
 - 멀티모듈화 구현: 여러 서비스를 통합하여 멀티모듈 구조로 설계했습니다.
+  
 
 1. MSA 구조
    
+   
 - CONFIG 서버: 클라우드 환경에 배포된 설정 관리 서버로, 모든 MSA 서비스의 설정 파일을 중앙에서 관리하고, 고가용성을 제공합니다.
+  
 - EUREKA 서버: 서비스 디스커버리와 등록을 담당하며, 각 서비스가 서로를 쉽게 발견하고 통신할 수 있도록 지원합니다.
+  
 - GATEWAY 서버: Spring Cloud Gateway를 사용하여 API 요청을 라우팅하며, 인증 및 권한 부여를 처리합니다.
+  
 - SECRET 서버: GitHub에 저장된 설정 파일을 기반으로 보안 관리 및 서비스별 설정을 담당합니다.
+  
 
 2. CI/CD 파이프라인
    
 - Jenkins: CI/CD 파이프라인을 구축하여 자동화된 빌드, 테스트, 배포를 수행합니다.
+  
 - Docker: 각 서비스를 컨테이너화하여 효율적인 환경 구성을 지원합니다.
+  
 - Kubernetes: NAVER CLOUD에 Kubernetes를 배포하여 안정적이고 확장 가능한 서비스를 운영합니다.
+  
 
 3. 서비스 구성
    
-1) USER-SERVICE
+
+- USER-SERVICE
 주요 기능: JWT 기반 로그인 인증/인가, Oauth2 소셜 로그인, 사용자 게시판 제공, 사용자 데이터 관리
 
-2) ADMIN-SERVICE
+
+- ADMIN-SERVICE
 주요 기능: 관리자 대시보드, 통계 및 뉴스 데이터 시각화, JPA QueryDSL을 활용한 데이터 분석, 회원관리 및 거래내역 통계
 
-3) ACCOUNT-SERVICE
+
+- ACCOUNT-SERVICE
 주요 기능: 주식계좌 관리, 실시간 주가 정보 제공, AI 알고리즘 기반 자동매매, 금융 거래 처리
 
-4) CHAT-SERVICE
+
+- CHAT-SERVICE
 주요 기능: 종목별 실시간 채팅, 다대다 채팅, SSE 기반 실시간 대화
 
-5) ALARM-SERVICE
-주요 기능: 공지 알림, 단체 메일 발송, SSE 기반 실시간 공지, Kafka를 통한 관리자 1:1 채팅, AWS S3 파일 업로드/다운로드
+
+- ALARM-SERVICE
+주요 기능: 공지 알림, 단체 메일 발송, SSE 기반 실시간 공지, Kafka를 통한 관리자 1:1 채팅, AWS S3 파일 업/다운로드
+
 
 
 4. 핵심 기능
    
+   
 - AI 기반 자동매매
 
- Facebook의 Prophet 모델을 사용하여 10일 후의 주가를 예측합니다.
- yfinance의 종목별 3년간 데이터를 이용하여 예측치를 생성하며, 예측된 주가 상승률과 사용자의 투자 성향을 비교하여 자동 매수/매도를 진행합니다.
+   Facebook의 Prophet 모델을 사용하여 10일 후의 주가를 예측합니다.
+   yfinance의 종목별 3년간 데이터를 이용하여 예측치를 생성하며, 예측된 주가 상승률과 사용자의 투자 성향을 비교하여 자동 매수/매도를 진행합니다.
 
 - 모의투자 및 성능 평가, 비교 분석
 
- 한국투자증권 모의투자 API를 사용하여 수강생 10명의 계좌를 개설, 투자 성향에 맞춰 모의투자를 진행합니다.
- 예측된 주가와 실제 모의투자를 비교 분석하여 AI 모델의 성능을 평가합니다.
+   한국투자증권 모의투자 API를 사용하여 수강생 10명의 계좌를 개설, 투자 성향에 맞춰 모의투자를 진행합니다.
+   예측된 주가와 실제 모의투자를 비교 분석하여 AI 모델의 성능을 평가합니다.
+
 
 5. 기술 스택
+   
 
-[Backend]
+  [Backend]
 
-- Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI)
+  - Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI)
 
-- Database: MySQL, MongoDB, Redis
+  - Database: MySQL, MongoDB, Redis
 
-[DevOps]
+  [DevOps]
 
-- Tools: Jenkins, Docker, Kubernetes, Synology NAS, GitHub
+  - Tools: Jenkins, Docker, Kubernetes, Synology NAS, GitHub
+
+    
 
 6. 협업 도구
    
-- Tools: Github, Slack, Jira, Notion
+  - Tools: Github, Slack, Jira, Notion
