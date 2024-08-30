@@ -77,13 +77,13 @@
 
   [Backend]
 
-  - Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI)
+  - Framework: Spring Boot (MVC, WebFlux, Security, Data JPA, Cloud Config, Cloud Gateway, Cloud Netflix Eureka, JWT, OAuth2.0, FastAPI
 
   - Database: MySQL, MongoDB, Redis
 
   [DevOps]
 
-  - Tools: Jenkins, Docker, Kubernetes, Synology NAS, GitHub
+  - Tools: Jenkins, Docker, Kubernetes, Synology NAS, GitHub, intelliJ
 
     
 
